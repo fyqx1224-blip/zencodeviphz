@@ -58,7 +58,7 @@ body::after {
 ::-webkit-scrollbar-track{background:rgba(0,0,0,0.3)}
 ::-webkit-scrollbar-thumb{background:rgba(64,128,200,0.4);border-radius:2px}
 
-.container { position:relative; z-index:2; max-width:960px; margin:0 auto; padding:0 24px 80px; }
+.container { position:relative; z-index:2; max-width:960px; margin:0 auto; padding:0 28px 140px; }
 
 /* ══ 頂部列與音效 ══ */
 .top-bar{position:fixed;top:0;left:0;right:0;z-index:990;height:52px;background:rgba(4,6,9,0.88);border-bottom:1px solid rgba(64,128,200,0.25);backdrop-filter:blur(24px);display:flex;align-items:center;justify-content:space-between;padding:0 32px}
@@ -75,73 +75,6 @@ body::after {
 .audio-hint-main{font-size:0.7rem;font-weight:500;letter-spacing:0.1em;display:block;color:#CDE0F5}
 .audio-hint-sub{font-size:0.58rem;opacity:0.6;display:block;margin-top:2px;letter-spacing:0.05em}
 
-/* ══ HERO ══ */
-.hero { min-height:100vh; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; position:relative; padding:60px 0; }
-.hero-tag{font-family:'Noto Sans TC',sans-serif;font-size:0.6rem;letter-spacing:0.55em;color:rgba(230,240,250,0.6);margin-bottom:28px;display:flex;align-items:center;gap:16px}
-.hero-tag::before,.hero-tag::after{content:'';width:44px;height:1px;background:linear-gradient(90deg,transparent,rgba(64,128,200,0.6))}
-.hero-tag::after{transform:scaleX(-1)}
-.hero-emblem {
-  font-family:'Ma Shan Zheng',cursive;
-  font-size:clamp(6rem,15vw,12rem);
-  color:var(--p);
-  line-height:1;
-  text-shadow:0 0 60px var(--pg),0 0 120px var(--pd);
-  animation:pulse-water 4s ease-in-out infinite;
-  margin-bottom:16px;
-}
-@keyframes pulse-water {
-  0%,100%{text-shadow:0 0 60px var(--pg),0 0 120px var(--pd)}
-  50%{text-shadow:0 0 95px var(--pb),0 0 190px rgba(96,168,240,0.36)}
-}
-.hero-name-row{font-family:'Ma Shan Zheng',cursive;font-size:clamp(1.1rem,2.3vw,1.6rem);color:rgba(230,240,250,0.95);letter-spacing:0.28em;margin-bottom:8px}
-.hero-subtitle { font-family:'Noto Sans TC',sans-serif; font-size:0.75rem; letter-spacing:0.5em; color:var(--p); margin-bottom:32px; }
-
-.birth-bar{display:inline-flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:14px;background:rgba(8,12,20,0.88);border:1px solid rgba(64,128,200,0.22);border-radius:44px;padding:12px 32px;margin-bottom:44px;backdrop-filter:blur(20px);box-shadow:0 12px 40px rgba(0,0,0,0.5),inset 0 0 24px rgba(64,128,200,0.06);font-family:'Noto Sans TC',sans-serif;font-size:0.75rem;letter-spacing:0.1em;color:#CDE0F5}
-.birth-bar .dot{color:var(--pb);font-size:0.4rem;opacity:0.6}
-.birth-bar .hl{color:var(--pb);font-weight:500}
-
-.pillars{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:36px;width:100%;max-width:640px}
-.pillar{display:flex;flex-direction:column;align-items:center;background:rgba(8,12,20,0.88);border:1px solid rgba(64,128,200,0.15);padding:20px 12px;border-radius:6px;backdrop-filter:blur(20px);transition:all .4s;position:relative;overflow:hidden;box-shadow:0 8px 24px rgba(0,0,0,0.35)}
-.pillar::before{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;background:linear-gradient(180deg,transparent,var(--pb),transparent);opacity:0;transition:opacity .4s}
-.pillar:hover{border-color:rgba(96,168,240,0.45);transform:translateY(-5px);background:rgba(64,128,200,0.1);box-shadow:0 16px 40px rgba(0,0,0,0.5)}
-.pillar:hover::before{opacity:1}
-.pillar.day-master{border-color:rgba(96,168,240,0.6);background:rgba(64,128,200,0.12);box-shadow:inset 0 0 32px rgba(64,128,200,0.18),0 0 0 1px rgba(64,128,200,0.25);animation:kuigangPulse 3.5s ease-in-out infinite}
-@keyframes kuigangPulse{0%,100%{box-shadow:inset 0 0 32px rgba(64,128,200,0.18),0 0 0 1px rgba(64,128,200,0.25),0 0 0 0 rgba(64,128,200,0)}50%{box-shadow:inset 0 0 48px rgba(64,128,200,0.3),0 0 0 1px rgba(64,128,200,0.4),0 0 28px 6px rgba(64,128,200,0.15)}}
-.p-lbl{font-size:0.58rem;letter-spacing:0.25em;color:rgba(230,240,250,0.5);margin-bottom:8px;font-family:'Noto Sans TC',sans-serif}
-.p-tg-god{font-size:0.6rem;color:var(--pb);margin-bottom:6px;font-family:'Noto Sans TC',sans-serif;letter-spacing:0.08em;white-space:nowrap}
-.p-tg{font-family:'Ma Shan Zheng',cursive;font-size:clamp(1.8rem,5vw,2.8rem);line-height:1.1;margin-bottom:6px}
-.p-dz{font-family:'Ma Shan Zheng',cursive;font-size:clamp(1.8rem,5vw,2.8rem);line-height:1.1}
-.p-dz-god{font-size:0.6rem;color:var(--pb);margin-top:8px;font-family:'Noto Sans TC',sans-serif;letter-spacing:0.08em;white-space:nowrap}
-.p-hidden{font-size:0.52rem;color:rgba(230,240,250,0.6);margin-top:6px;font-family:'Noto Sans TC',sans-serif;letter-spacing:0.05em;border-top:1px solid rgba(64,128,200,0.2);padding-top:6px;width:100%;text-align:center;line-height:1.4}
-.p-nayin{font-size:0.5rem;color:rgba(180,210,240,0.85);margin-top:8px;font-family:'Noto Sans TC',sans-serif;letter-spacing:0.08em;background:rgba(64,128,200,0.12);padding:3px 8px;border-radius:4px;white-space:nowrap}
-
-.fire-c  { color:#F07840; }
-.earth-c { color:#C9A84C; }
-.metal-c { color:#C8C8D8; }
-.wood-c  { color:#7AB860; }
-.water-c { color:#63B3ED; }
-
-/* ══ SECTIONS ══ */
-.section { padding:82px 0; border-top:1px solid rgba(64,128,200,0.08); }
-.sec-hd { display:flex; align-items:flex-start; gap:22px; margin-bottom:48px; }
-.sec-num { font-family:'Ma Shan Zheng',cursive; font-size:3rem; color:var(--pb); opacity:0.4; line-height:1; flex-shrink:0; padding-top:4px; }
-.sec-ti-wrap { flex:1; }
-.sec-ti { font-size:1.38rem; font-weight:600; color:var(--pb); letter-spacing:0.09em; line-height:1.4; }
-.sec-en { font-size:0.6rem; letter-spacing:0.36em; color:var(--pb); opacity:0.6; font-family:'Noto Sans TC',sans-serif; margin-top:5px; text-transform:uppercase; }
-.sec-intro { font-size:0.92rem; line-height:2.25; color:rgba(230,240,250,0.75); margin-top:12px; font-family:'Noto Sans TC',sans-serif; font-weight:300; letter-spacing:0.02em; }
-
-/* ══ CARDS ══ */
-.card{background:rgba(8,12,20,0.88);border:1px solid rgba(64,128,200,0.12);border-radius:6px;padding:36px 40px;margin-bottom:18px;position:relative;overflow:hidden;backdrop-filter:blur(24px);transition:border-color .4s,box-shadow .4s}
-.card:hover{border-color:rgba(96,168,240,0.35);box-shadow:0 8px 32px rgba(0,0,0,0.4)}
-.card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:linear-gradient(180deg,transparent,var(--pb) 28%,var(--p) 72%,transparent)}
-.card-ti{font-size:1.04rem;color:var(--pb);font-weight:600;margin-bottom:20px;letter-spacing:0.05em;display:flex;align-items:center;gap:9px;line-height:1.5}
-.card-ti::before{content:'◆';font-size:0.38rem;color:var(--pb);flex-shrink:0}
-.card p{font-size:0.94rem;line-height:2.3;color:rgba(230,240,250,0.88);font-weight:300;margin-bottom:14px;text-align:justify;letter-spacing:0.02em}
-.card p:last-child{margin-bottom:0}
-
-.quote{border-left:2px solid var(--pb);padding:14px 20px;margin:14px 0 20px;background:rgba(64,128,200,0.06);font-family:'Noto Serif TC',serif;font-style:italic;color:rgba(230,240,250,0.85);font-size:0.88rem;line-height:2.05;letter-spacing:0.05em}
-
-/* TOOLTIP */
 #global-tooltip{
   position:fixed;background:rgba(4,6,9,0.96);backdrop-filter:blur(24px);
   border:1px solid rgba(64,128,200,0.5);
@@ -152,7 +85,85 @@ body::after {
 }
 #global-tooltip.active{opacity:1;visibility:visible;transform:translateY(0)}
 
-/* ══ 五行模块 ══ */
+.authority-box{background:rgba(8,12,20,0.7);border:1px solid rgba(64,128,200,0.22);border-radius:6px;padding:24px 28px;margin:18px 0;box-shadow:inset 0 0 24px rgba(0,0,0,0.5)}
+.authority-box-hd{font-family:'Noto Sans TC',sans-serif;font-size:0.72rem;letter-spacing:0.22em;color:var(--pb);margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.authority-box-hd::before{content:'▍';color:var(--pb);opacity:0.7}
+.authority-item{display:flex;gap:14px;margin-bottom:12px;align-items:flex-start}
+.authority-item:last-child{margin-bottom:0}
+.authority-num{font-family:'Noto Sans TC',sans-serif;font-size:0.68rem;color:var(--pb);opacity:0.7;flex-shrink:0;width:22px;text-align:right;padding-top:3px}
+.authority-text{font-size:0.87rem;line-height:1.95;color:rgba(230,240,250,0.85);font-family:'Noto Sans TC',sans-serif;font-weight:300}
+
+/* ══ HERO ══ */
+.hero { min-height:100vh; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; position:relative; padding:90px 0 40px; }
+.hero-tag{font-family:'Noto Sans TC',sans-serif;font-size:0.6rem;letter-spacing:0.55em;color:rgba(230,240,250,0.6);margin-bottom:28px;display:flex;align-items:center;gap:16px}
+.hero-tag::before,.hero-tag::after{content:'';width:44px;height:1px;background:linear-gradient(90deg,transparent,rgba(64,128,200,0.6))}
+.hero-tag::after{transform:scaleX(-1)}
+
+.hero-emblem {
+  font-family:'Ma Shan Zheng',cursive;
+  font-size:clamp(8rem,20vw,14rem);
+  color:rgba(96,168,240,0.95);
+  line-height:1;
+  margin-bottom:24px;
+  text-shadow:0 0 28px rgba(64,128,200,0.5),0 0 60px rgba(64,128,200,0.25),0 0 120px rgba(40,80,160,0.15);
+  animation:emblem-breathe 4.5s ease-in-out infinite;
+  position:relative;z-index:3;
+}
+@keyframes emblem-breathe {
+  0%,100%{opacity:0.88;transform:scale(1)}
+  50%{opacity:1;transform:scale(1.025);text-shadow:0 0 40px rgba(64,128,200,0.7),0 0 80px rgba(64,128,200,0.35),0 0 140px rgba(40,80,160,0.2)}
+}
+
+.hero-name-row{font-family:'Ma Shan Zheng',cursive;font-size:clamp(1.1rem,2.3vw,1.6rem);color:rgba(230,240,250,0.95);letter-spacing:0.28em;margin-bottom:8px}
+.hero-sub{font-family:'Noto Sans TC',sans-serif;font-size:0.7rem;letter-spacing:0.45em;color:var(--pb);opacity:0.9;margin-bottom:36px}
+
+.birth-bar{display:inline-flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:14px;background:rgba(8,12,20,0.88);border:1px solid rgba(64,128,200,0.22);border-radius:44px;padding:12px 32px;margin-bottom:44px;backdrop-filter:blur(20px);box-shadow:0 12px 40px rgba(0,0,0,0.5),inset 0 0 24px rgba(64,128,200,0.06);font-family:'Noto Sans TC',sans-serif;font-size:0.75rem;letter-spacing:0.1em;color:#CDE0F5}
+.birth-bar .dot{color:var(--pb);font-size:0.4rem;opacity:0.6}
+.birth-bar .hl{color:var(--pb);font-weight:500}
+
+/* 四柱颜色 */
+.c-wood  { color:var(--wood); }
+.c-fire  { color:var(--fire); }
+.c-earth { color:var(--earth); }
+.c-metal { color:var(--metal); }
+.c-water { color:var(--water); }
+
+.pillars{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:36px;width:100%;max-width:640px}
+.pillar{display:flex;flex-direction:column;align-items:center;background:rgba(8,12,20,0.88);border:1px solid rgba(64,128,200,0.15);padding:20px 12px;border-radius:6px;backdrop-filter:blur(20px);transition:all .4s;position:relative;overflow:hidden;box-shadow:0 8px 24px rgba(0,0,0,0.35)}
+.pillar::before{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;background:linear-gradient(180deg,transparent,var(--pb),transparent);opacity:0;transition:opacity .4s}
+.pillar:hover{border-color:rgba(96,168,240,0.45);transform:translateY(-5px);background:rgba(64,128,200,0.1);box-shadow:0 16px 40px rgba(0,0,0,0.5)}
+.pillar:hover::before{opacity:1}
+.pillar.day-master{border-color:rgba(96,168,240,0.6);background:rgba(64,128,200,0.12);box-shadow:inset 0 0 32px rgba(64,128,200,0.18),0 0 0 1px rgba(64,128,200,0.25);animation:dmPulse 3.5s ease-in-out infinite}
+@keyframes dmPulse{0%,100%{box-shadow:inset 0 0 32px rgba(64,128,200,0.18),0 0 0 1px rgba(64,128,200,0.25),0 0 0 0 rgba(64,128,200,0)}50%{box-shadow:inset 0 0 48px rgba(64,128,200,0.3),0 0 0 1px rgba(64,128,200,0.4),0 0 28px 6px rgba(64,128,200,0.15)}}
+
+.p-lbl{font-size:0.58rem;letter-spacing:0.25em;color:rgba(230,240,250,0.5);margin-bottom:8px;font-family:'Noto Sans TC',sans-serif}
+.p-tg-god{font-size:0.6rem;color:var(--pb);margin-bottom:6px;font-family:'Noto Sans TC',sans-serif;letter-spacing:0.08em;white-space:nowrap}
+.p-tg{font-family:'Ma Shan Zheng',cursive;font-size:clamp(1.8rem,5vw,2.8rem);line-height:1.1;margin-bottom:6px}
+.p-dz{font-family:'Ma Shan Zheng',cursive;font-size:clamp(1.8rem,5vw,2.8rem);line-height:1.1}
+.p-dz-god{font-size:0.6rem;color:var(--pb);margin-top:8px;font-family:'Noto Sans TC',sans-serif;letter-spacing:0.08em;white-space:nowrap}
+.p-hidden{font-size:0.52rem;color:rgba(230,240,250,0.6);margin-top:6px;font-family:'Noto Sans TC',sans-serif;letter-spacing:0.05em;border-top:1px solid rgba(64,128,200,0.2);padding-top:6px;width:100%;text-align:center;line-height:1.4}
+.p-nayin{font-size:0.5rem;color:rgba(180,210,240,0.85);margin-top:8px;font-family:'Noto Sans TC',sans-serif;letter-spacing:0.08em;background:rgba(64,128,200,0.12);padding:3px 8px;border-radius:4px;white-space:nowrap}
+
+/* ══ SECTIONS ══ */
+.section{padding:82px 0;border-top:1px solid rgba(64,128,200,0.08)}
+.sec-hd{display:flex;align-items:flex-start;gap:22px;margin-bottom:48px}
+.sec-num{font-family:'Ma Shan Zheng',cursive;font-size:3rem;color:var(--pb);opacity:0.4;line-height:1;flex-shrink:0;padding-top:4px}
+.sec-ti-wrap{flex:1}
+.sec-ti{font-size:1.38rem;font-weight:600;color:var(--pb);letter-spacing:0.09em;line-height:1.4}
+.sec-en{font-size:0.6rem;letter-spacing:0.36em;color:var(--pb);opacity:0.6;font-family:'Noto Sans TC',sans-serif;margin-top:5px;text-transform:uppercase}
+.sec-intro{font-size:0.92rem;line-height:2.25;color:rgba(230,240,250,0.75);margin-top:12px;font-family:'Noto Sans TC',sans-serif;font-weight:300;letter-spacing:0.02em}
+
+.card{background:rgba(8,12,20,0.88);border:1px solid rgba(64,128,200,0.12);border-radius:6px;padding:36px 40px;margin-bottom:18px;position:relative;overflow:hidden;backdrop-filter:blur(24px);transition:border-color .4s,box-shadow .4s}
+.card:hover{border-color:rgba(96,168,240,0.35);box-shadow:0 8px 32px rgba(0,0,0,0.4)}
+.card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:linear-gradient(180deg,transparent,var(--pb) 28%,var(--p) 72%,transparent)}
+.card-ti{font-size:1.04rem;color:var(--pb);font-weight:600;margin-bottom:20px;letter-spacing:0.05em;display:flex;align-items:center;gap:9px;line-height:1.5}
+.card-ti::before{content:'◆';font-size:0.38rem;color:var(--pb);flex-shrink:0}
+.card p{font-size:0.94rem;line-height:2.3;color:rgba(230,240,250,0.88);font-weight:300;margin-bottom:14px;text-align:justify;letter-spacing:0.02em}
+.card p:last-child{margin-bottom:0}
+
+.quote{border-left:2px solid var(--pb);padding:14px 20px;margin:14px 0 20px;background:rgba(64,128,200,0.06);font-family:'Noto Serif TC',serif;font-style:italic;color:rgba(230,240,250,0.85);font-size:0.88rem;line-height:2.05;letter-spacing:0.05em}
+
+/* 五行模块 */
 .wx-sec-title{font-size:0.95rem;color:var(--pb);font-weight:600;margin-bottom:16px;letter-spacing:0.05em;display:flex;align-items:center;gap:8px}
 .wx-sec-title::before{content:'◆';font-size:0.6rem;color:var(--pb)}
 .wx-power-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-bottom:36px}
@@ -329,7 +340,7 @@ body::after {
 
 /* ══ 终章 ══ */
 .verdict{text-align:center;padding:120px 20px 80px;border-top:1px solid rgba(64,128,200,0.08)}
-.verdict-kw{font-family:'Ma Shan Zheng',cursive;font-size:clamp(4rem,11vw,7.5rem);color:transparent;background:linear-gradient(145deg,#4080C8 0%,#80C0F8 45%,#6DB56A 100%);-webkit-background-clip:text;background-clip:text;line-height:1;margin-bottom:36px;animation:vshine 5.5s ease-in-out infinite}
+.verdict-kw{font-family:'Ma Shan Zheng',cursive;font-size:clamp(4rem,11vw,7.5rem);color:transparent;background:linear-gradient(145deg, #4080C8 0%, #80C0F8 45%, #6DB56A 100%);-webkit-background-clip:text;background-clip:text;line-height:1;margin-bottom:36px;animation:vshine 5.5s ease-in-out infinite}
 @keyframes vshine{0%,100%{filter:brightness(0.95)}50%{filter:brightness(1.3)}}
 .verdict-body{font-size:1.02rem;line-height:3;color:rgba(230,240,250,0.88);max-width:660px;margin:0 auto 48px;font-weight:300;letter-spacing:0.04em}
 .verdict-divider{display:flex;align-items:center;justify-content:center;margin:0 auto 36px;gap:0}
@@ -665,7 +676,7 @@ body::after {
     </div>
     <div class="ss-item">
       <div class="ss-name" style="color:var(--metal)">白衣</div>
-      <div class="ss-desc">潛意識中帶有避世或看淡人際聚散的清冷底色。習慣在喧囂中保持旁觀，對親疏離別有著超越常人的脫敏能力。</div>
+      <div class="ss-desc">潛意識中帶有避世或看淡人際聚散的清冷底色。習慣在喧囂中保持旁觀，對親疏離别有著超越常人的脫敏能力。</div>
     </div>
     <div class="ss-item">
       <div class="ss-name" style="color:var(--water)">孤鸞</div>
@@ -1166,7 +1177,17 @@ body::after {
 </section>
 
 <div class="verdict">
-  <div class="verdict-main">癸水歸海</div>
+  <div class="verdict-title-wrapper" style="display:flex;align-items:center;justify-content:center;gap:24px;margin-bottom:36px">
+    <svg width="40" height="60" viewBox="0 0 60 80" style="opacity:0.8;transform:scaleX(-1)">
+      <path d="M30 80 C10 60 10 30 30 0 C50 30 50 60 30 80 Z" fill="none" stroke="var(--water)" stroke-width="1.5"/>
+      <path d="M30 65 C20 50 25 35 30 20 C35 35 40 50 30 65 Z" fill="none" stroke="var(--pb)" stroke-width="1"/>
+    </svg>
+    <div class="verdict-main" style="margin-bottom:0">癸水歸海</div>
+    <svg width="40" height="60" viewBox="0 0 60 80" style="opacity:0.8">
+      <path d="M30 80 C10 60 10 30 30 0 C50 30 50 60 30 80 Z" fill="none" stroke="var(--water)" stroke-width="1.5"/>
+      <path d="M30 65 C20 50 25 35 30 20 C35 35 40 50 30 65 Z" fill="none" stroke="var(--pb)" stroke-width="1"/>
+    </svg>
+  </div>
   <div class="verdict-text">
     你是一片深不見底的海洋，<br>
     表面上平靜無波，<br>
@@ -1180,6 +1201,13 @@ body::after {
     停止內心的自我審判（自刑），<br>
     讓你的水流動起來，去滋養草木，去擁抱陽光。<br><br>
     <em style="color:var(--pb);font-size:0.9rem;">熬過寒冬，用你的才智劈開迷霧，未來南方盛夏的火光，定會將這片汪洋照耀得無比璀璨。</em>
+  </div>
+  <div class="verdict-divider">
+    <svg width="240" height="32" viewBox="0 0 480 64" style="opacity:0.7">
+      <path d="M0 50 Q60 20 120 40 Q180 60 240 32 Q300 4 360 40 Q420 60 480 50" stroke="var(--water)" stroke-width="1.5" fill="none"/>
+      <path d="M200 32 C210 20 215 12 220 20 C225 10 228 6 232 14 C236 6 239 10 244 20 C248 12 252 20 260 32" fill="var(--pb)" stroke="none"/>
+      <ellipse cx="240" cy="28" rx="5" ry="3" fill="var(--ac)"/>
+    </svg>
   </div>
   <div class="verdict-seal">命盤深度解讀</div>
 </div>
@@ -1359,6 +1387,82 @@ document.addEventListener('mouseout',e=>{if(e.target.closest('.anchor'))hideTool
     },
     plugins:[customPlugin]
   });
+})();
+
+/* ══ 动态深蓝水下粒子背景 (替换原先的红色火焰) ══ */
+(function(){
+  const canvas = document.getElementById('bgCanvas');
+  const ctx2d = canvas.getContext('2d');
+  let W, H, time = 0;
+  let particles = [];
+
+  function resize(){
+    W = canvas.width = window.innerWidth;
+    H = canvas.height = window.innerHeight;
+    particles = [];
+    for(let i=0; i<80; i++) {
+      particles.push({
+        x: Math.random() * W, 
+        y: Math.random() * H,
+        size: Math.random() * 8 + 2,
+        vx: (Math.random() - 0.5) * 0.8, 
+        vy: -(Math.random() * 1.5 + 0.5),
+        life: Math.random()
+      });
+    }
+  }
+  window.addEventListener('resize', resize);
+
+  function drawFrame() {
+    time++;
+    const bgGrd = ctx2d.createLinearGradient(0, 0, 0, H);
+    bgGrd.addColorStop(0, '#020406');
+    bgGrd.addColorStop(0.65, '#060a12');
+    bgGrd.addColorStop(1, '#0a1424');
+    ctx2d.fillStyle = bgGrd;
+    ctx2d.fillRect(0, 0, W, H);
+
+    ctx2d.globalCompositeOperation = 'screen';
+    
+    const bottomGlow = ctx2d.createLinearGradient(0, H - 200, 0, H);
+    bottomGlow.addColorStop(0, 'rgba(0, 0, 0, 0)');
+    bottomGlow.addColorStop(1, 'rgba(30, 80, 160, 0.15)');
+    ctx2d.fillStyle = bottomGlow;
+    ctx2d.fillRect(0, H - 200, W, 200);
+
+    for(let i = particles.length - 1; i >= 0; i--){
+      const p = particles[i];
+      p.x += p.vx + Math.sin(time * 0.02 + p.y * 0.01) * 0.4;
+      p.y += p.vy;
+      p.life -= 0.003;
+
+      if(p.life <= 0 || p.y < -20) {
+        particles[i] = {
+          x: Math.random() * W,  y: H + 20,
+          size: Math.random() * 8 + 2,
+          vx: (Math.random() - 0.5) * 0.8, vy: -(Math.random() * 1.5 + 0.5),
+          life: 1
+        };
+        continue;
+      }
+
+      const g = ctx2d.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.size);
+      g.addColorStop(0, `rgba(96, 168, 240, ${p.life * 0.4})`);
+      g.addColorStop(0.4, `rgba(64, 128, 200, ${p.life * 0.15})`);
+      g.addColorStop(1, 'rgba(0, 0, 0, 0)');
+      
+      ctx2d.fillStyle = g;
+      ctx2d.beginPath();
+      ctx2d.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+      ctx2d.fill();
+    }
+    
+    ctx2d.globalCompositeOperation = 'source-over';
+    requestAnimationFrame(drawFrame);
+  }
+  
+  resize();
+  drawFrame();
 })();
 
 /* ══ 中国风五声调式 舒缓氛围音效 ══ */
