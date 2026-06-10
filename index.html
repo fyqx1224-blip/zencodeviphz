@@ -85,14 +85,6 @@ body::after {
 }
 #global-tooltip.active{opacity:1;visibility:visible;transform:translateY(0)}
 
-.authority-box{background:rgba(8,12,20,0.7);border:1px solid rgba(64,128,200,0.22);border-radius:6px;padding:24px 28px;margin:18px 0;box-shadow:inset 0 0 24px rgba(0,0,0,0.5)}
-.authority-box-hd{font-family:'Noto Sans TC',sans-serif;font-size:0.72rem;letter-spacing:0.22em;color:var(--pb);margin-bottom:14px;display:flex;align-items:center;gap:8px}
-.authority-box-hd::before{content:'▍';color:var(--pb);opacity:0.7}
-.authority-item{display:flex;gap:14px;margin-bottom:12px;align-items:flex-start}
-.authority-item:last-child{margin-bottom:0}
-.authority-num{font-family:'Noto Sans TC',sans-serif;font-size:0.68rem;color:var(--pb);opacity:0.7;flex-shrink:0;width:22px;text-align:right;padding-top:3px}
-.authority-text{font-size:0.87rem;line-height:1.95;color:rgba(230,240,250,0.85);font-family:'Noto Sans TC',sans-serif;font-weight:300}
-
 /* ══ HERO ══ */
 .hero { min-height:100vh; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; position:relative; padding:90px 0 40px; }
 .hero-tag{font-family:'Noto Sans TC',sans-serif;font-size:0.6rem;letter-spacing:0.55em;color:rgba(230,240,250,0.6);margin-bottom:28px;display:flex;align-items:center;gap:16px}
@@ -162,12 +154,6 @@ body::after {
 .card p:last-child{margin-bottom:0}
 
 .quote{border-left:2px solid var(--pb);padding:14px 20px;margin:14px 0 20px;background:rgba(64,128,200,0.06);font-family:'Noto Serif TC',serif;font-style:italic;color:rgba(230,240,250,0.85);font-size:0.88rem;line-height:2.05;letter-spacing:0.05em}
-
-/* 视频框 */
-.video-box{position:relative;width:100%;border-radius:6px;overflow:hidden;border:1px solid rgba(64,128,200,0.2);background:rgba(4,6,9,0.6);box-shadow:0 8px 24px rgba(0,0,0,0.5);margin-top:24px;margin-bottom:24px;}
-.video-box video{display:block;width:100%;height:auto;max-height:480px;object-fit:cover;outline:none}
-.video-fallback{padding:40px;text-align:center;color:rgba(230,240,250,0.5);font-family:'Noto Sans TC',sans-serif;font-size:0.85rem;line-height:2}
-.video-fallback-icon{font-size:2.5rem;margin-bottom:12px;opacity:0.4;display:block}
 
 /* 五行模块 */
 .wx-sec-title{font-size:0.95rem;color:var(--pb);font-weight:600;margin-bottom:16px;letter-spacing:0.05em;display:flex;align-items:center;gap:8px}
@@ -357,9 +343,16 @@ body::after {
 @keyframes vshine{0%,100%{filter:brightness(0.95)}50%{filter:brightness(1.3)}}
 .verdict-body{font-size:1.02rem;line-height:3;color:rgba(230,240,250,0.88);max-width:660px;margin:0 auto 48px;font-weight:300;letter-spacing:0.04em}
 .verdict-divider{display:flex;align-items:center;justify-content:center;margin:0 auto 36px;gap:0}
-.verdict-seal{display:inline-flex;flex-direction:column;align-items:center;gap:5px;border:1px solid rgba(64,128,200,0.4);padding:14px 36px;background:rgba(64,128,200,0.06);backdrop-filter:blur(16px);border-radius:4px;box-shadow:0 0 24px rgba(64,128,200,0.18)}
-.verdict-seal-main{font-family:'Ma Shan Zheng',cursive;font-size:1.05rem;color:var(--pb);letter-spacing:0.32em}
-.verdict-seal-sub{font-family:'Noto Sans TC',sans-serif;font-size:0.56rem;color:rgba(230,240,250,0.5);letter-spacing:0.28em}
+.verdict-seal{
+  display:inline-block;
+  border:1px solid rgba(64,128,200,0.5);
+  padding:12px 32px;
+  font-family:'Noto Serif TC',serif;
+  font-size:0.95rem;
+  color:var(--pb);
+  letter-spacing:0.2em;
+  background:transparent;
+}
 .footer{text-align:center;padding:36px 0 56px;border-top:1px solid rgba(64,128,200,0.06)}
 .footer-logo{font-family:'Ma Shan Zheng',cursive;font-size:1.35rem;color:var(--pb);opacity:0.4;letter-spacing:0.28em;margin-bottom:9px}
 .footer-txt{font-family:'Noto Sans TC',sans-serif;font-size:0.58rem;color:rgba(230,240,250,0.3);letter-spacing:0.22em;line-height:2.2}
@@ -409,7 +402,6 @@ body::after {
   .pt-col.right{padding-left:0}
   .pt-item{text-align:left}
   .pt-item::after,.pt-col.right .pt-item::after{display:none}
-  .video-fallback-icon{font-size:2rem;}
   .bone-wrap{flex-direction:column;gap:16px;text-align:center;padding:24px 16px;}
 }
 @media(max-width:400px){.p-tg,.p-dz{font-size:1.35rem}.p-nayin{display:none}}
@@ -514,16 +506,6 @@ body::after {
   <div class="card">
     <div class="card-ti">命局能量視覺化演繹：深海的暗流與生機</div>
     <p>請想像：<strong>一片深不見底的冬日海洋（雙亥水），海面上漂浮著冰冷的泥沙（己丑土）。</strong>這片海域蘊藏著吞噬一切的龐大能量（極強的自我與固執），但因為氣候極寒，顯得有些生機黯淡。唯一的希望，是海岸邊生長著一片堅韌的樹林（卯木），它們努力吸收著海水，並在微弱的星光（丁火）下試圖開花結果。這片海洋最深切的渴望，是春天的暖陽（火運）與廣闊的森林（木運）來引導這股力量。</p>
-    <div class="video-box">
-      <video controls playsinline preload="metadata" style="width:100%; border-radius:6px;">
-        <source src="vedo.mp4" type="video/mp4">
-        <div class="video-fallback">
-          <span class="video-fallback-icon">🌊</span>
-          <strong style="color:var(--pb)">視覺推演加載中</strong><br>
-          請確認 vedo.mp4 與本文件位於同一目錄
-        </div>
-      </video>
-    </div>
   </div>
 
   <div class="wx-sec-title">五行力量分布</div>
@@ -674,71 +656,74 @@ body::after {
       <p style="font-size:0.86rem;line-height:2;color:rgba(230,240,250,0.85);font-weight:300;margin-bottom:8px"><strong>2. 印星(金)的缺失與安全感斷層：</strong>正偏印極度微弱且逢空亡。印星代表長輩庇護、傳統體制與內在的安全感。印星的缺失，導致你很難在傳統體制內找到歸屬感，凡事只能靠自己。你習慣了獨當一面，卻很難在別人面前展現脆弱。</p>
     </div>
   </div>
-
 </section>
 
 <section class="section">
   <div class="sec-hd">
     <div class="sec-num">肆</div>
     <div class="sec-ti-wrap">
-      <div class="sec-ti">神煞深度解碼：命盤中的十四道先天烙印</div>
+      <div class="sec-ti">神煞深度解碼：命盤先天烙印</div>
       <div class="sec-en">DIVINE STARS · PSYCHOLOGICAL ARCHETYPES</div>
-      <div class="sec-intro">本局罕見集齊十四大神煞，它們並非怪力亂神，而是深層心理學在命理中的精準投射。</div>
+      <div class="sec-intro">神煞並非怪力亂神，而是深層心理學在命理中的精準投射。本局集齊諸多極致的能量符號。</div>
     </div>
   </div>
 
   <div class="ss-grid" style="margin:0">
     <div class="ss-item">
-      <div class="ss-name" style="color:var(--pb)">羊刃（雙見）</div>
-      <div class="ss-desc">極強的自我驅動力與寧折不彎的烈性。不輕易低頭，在關鍵時刻能爆發出驚人的突破力，但也易因過剛而傷身或傷及親近之人。</div>
+      <div class="ss-name" style="color:var(--pb)">天乙貴人</div>
+      <div class="ss-desc">年支卯木為天乙貴人。代表在早年或遇到重大危機時，總有冥冥中的力量保護。卯木同時是你的食神，意味著「你的才華和技能，就是你最大的貴人」。</div>
     </div>
     <div class="ss-item">
-      <div class="ss-name" style="color:var(--wood)">太極</div>
-      <div class="ss-desc">太極貴人入命，悟性極高。對玄學、哲學、心理學等高維神祕事物有天然的共鳴，總能在混沌中看清本質，擁有出世的智慧。</div>
+      <div class="ss-name" style="color:var(--wood)">太極貴人</div>
+      <div class="ss-desc">悟性極高。對玄學、哲學、心理學等高維神祕事物有天然的共鳴，總能在混沌中看清本質，擁有出世的智慧。</div>
     </div>
     <div class="ss-item">
-      <div class="ss-name" style="color:var(--earth)">病符</div>
-      <div class="ss-desc">氣場波動時，精神內耗極易直接顯化為身體亞健康或特定小疾，這是你的身體在強制提醒你停止過度的情緒透支。</div>
+      <div class="ss-name" style="color:var(--pb)">驛馬</div>
+      <div class="ss-desc">命局逢寅即動。你中年以後的流動性極強，跨界、搬遷或海外拓展將是常態，在走動中容易覓得生機。</div>
     </div>
     <div class="ss-item">
-      <div class="ss-name" style="color:var(--wood)">天醫</div>
-      <div class="ss-desc">自帶能量場療癒屬性。具備自我心理縫合能力，且對醫學、心理癒合有天然敏感度，在經歷創傷後能自醫亦能醫人。</div>
+      <div class="ss-name" style="color:var(--fire)">桃花</div>
+      <div class="ss-desc">卯木即為桃花星。這賦予你極佳的個人魅力與異性緣分，善用桃花的人氣，能大幅推進事業版圖與人際影響力。</div>
     </div>
     <div class="ss-item">
-      <div class="ss-name" style="color:var(--metal)">白衣</div>
-      <div class="ss-desc">潛意識中帶有避世或看淡人際聚散的清冷底色。習慣在喧囂中保持旁觀，對親疏離别有著超越常人的脫敏能力。</div>
+      <div class="ss-name" style="color:var(--metal)">空亡</div>
+      <div class="ss-desc">金為你的印星，落入空亡。意味著你與傳統的體制、常規的學歷或者長輩的緣分相對較淺。更適合走「非傳統、靠個人技能」的路徑。</div>
     </div>
     <div class="ss-item">
-      <div class="ss-name" style="color:var(--water)">孤鸞</div>
-      <div class="ss-desc">感情特立獨行，極度排斥被世俗的婚姻框架與家庭角色所束縛，寧願高質量的獨處，也不妥協於低質量的陪伴。</div>
+      <div class="ss-name" style="color:var(--wood)">魁罡</div>
+      <div class="ss-desc">孤傲、強勢、自我要求極高、聰慧而有煞氣。這股力量是你成就的來源，意味著你不盲從權威，有開創新局的魄力。</div>
     </div>
     <div class="ss-item">
-      <div class="ss-name" style="color:var(--fire)">德秀</div>
-      <div class="ss-desc">稟性聰慧，氣質清雅。內在有著極強的道德潔癖與審美門檻，難以容忍精神層面的粗糙與低俗。</div>
+      <div class="ss-name" style="color:var(--pb)">將星</div>
+      <div class="ss-desc">權力與領導的象徵。水勢浩蕩中帶有將星，代表在混亂與高壓中能保持極強的鎮定力，天生具備執掌大局、統御團隊的將帥之才。</div>
+    </div>
+    <div class="ss-item">
+      <div class="ss-name" style="color:var(--pb)">兼刃 / 羊刃</div>
+      <div class="ss-desc">極強的自我驅動力與寧折不彎的烈性。行事極具魄力與切割力，在關鍵時刻能爆發出驚人的突破力，但也易因過剛而傷及親近之人。</div>
+    </div>
+    <div class="ss-item">
+      <div class="ss-name" style="color:var(--water)">水溺煞</div>
+      <div class="ss-desc">命局水勢氾濫而見此煞，潛意識中對深水或失控的情緒有一種恐懼與吸引並存的拉扯。需防範水厄，更要防範在情緒的深淵中「溺水」內耗。</div>
+    </div>
+    <div class="ss-item">
+      <div class="ss-name" style="color:var(--earth)">十惡大敗</div>
+      <div class="ss-desc">對金錢缺乏守財概念。加之命局群比奪財，財務上極易出現大進大出。必須建立強制的儲蓄機制，將現金轉化為固定資產。</div>
+    </div>
+    <div class="ss-item">
+      <div class="ss-name" style="color:var(--water)">陰陽差錯</div>
+      <div class="ss-desc">感情與人際交往中常有「陰差陽錯」之感。容易錯過對的人，或在關係中產生難以言喻的隔閡。需在親密關係中保持物理距離與精神獨立。</div>
+    </div>
+    <div class="ss-item">
+      <div class="ss-name" style="color:var(--wood)">詞館</div>
+      <div class="ss-desc">文才與表達力的極佳賦賦。配合食神泄秀，代表你擁有極強的文字、語言或藝術感染力，這是你將內在水系能量轉化為世俗價值的最強武器。</div>
     </div>
     <div class="ss-item">
       <div class="ss-name" style="color:var(--earth)">天廚</div>
-      <div class="ss-desc">天生自帶食神口福，不僅在現實中不缺物質供养，更代表在藝術與精神領域能源源不斷地獲得豐厚靈感滋養。</div>
-    </div>
-    <div class="ss-item">
-      <div class="ss-name" style="color:var(--water)">咸池</div>
-      <div class="ss-desc">桃花暗藏。吸引力內斂但不容忽視，人緣極佳，但由於氣場過於清冷，他人往往只敢遠觀而不敢輕易靠近。</div>
-    </div>
-    <div class="ss-item">
-      <div class="ss-name" style="color:var(--fire)">紅艷</div>
-      <div class="ss-desc">浪漫多情，對美與藝術有極高的感知力與表現力。這種特質轉化為創作或事業時，往往極具感染力與個人魅力。</div>
+      <div class="ss-desc">天生自帶食神口福，不僅在現實中不缺物質供養，更代表在藝術與精神領域能源源不斷地獲得豐厚靈感滋養。</div>
     </div>
     <div class="ss-item">
       <div class="ss-name" style="color:var(--metal)">國印</div>
       <div class="ss-desc">做事自帶威嚴與清晰的規則感。在事業中一旦確立目標，行事會極其規範嚴謹，天生宜執掌核心權力或建立體系。</div>
-    </div>
-    <div class="ss-item">
-      <div class="ss-name" style="color:var(--water)">退神</div>
-      <div class="ss-desc">價值觀內斂，不喜在名利場上爭搶前排。遇事更傾向於隱退、讓步與冷眼旁觀，是一種高級的自我保護機制。</div>
-    </div>
-    <div class="ss-item">
-      <div class="ss-name" style="color:var(--water)">自縊煞</div>
-      <div class="ss-desc">並非字面之凶險，而指情緒易走極端。在能量內耗至極時（如亥亥自刑），極易陷入自我否定的死循環，需強制中斷負面思考。</div>
     </div>
     <div class="ss-item">
       <div class="ss-name" style="color:var(--earth)">埋兒殺</div>
@@ -910,7 +895,7 @@ body::after {
     <div class="major-card wood-card">
       <span class="major-tag">A级契合</span>
       <div class="major-ti">教育培訓 · 心理/玄學諮詢</div>
-      <div class="major-desc">太極貴人與天醫入命，直覺極強。對人性洞察細膩，適合將知識系統化，通過教育或諮詢來療癒他人。</div>
+      <div class="major-desc">太極貴人與詞館入命，表達極佳。對人性洞察細膩，適合將知識系統化，通過教育或諮詢來療癒他人。</div>
     </div>
     <div class="major-card metal-card">
       <span class="major-tag">A级契合</span>
@@ -939,7 +924,7 @@ body::after {
     <div class="wealth-tier-bar"></div>
     <div class="wealth-tier-body">
       <p>財富底色：<strong>群比奪財，財來財去。丁火偏財被癸水夾擊，財富極度缺乏安全感。</strong></p>
-      <p><strong>財富轉化核心邏輯：</strong>命局中水多火微，意味著你周圍充滿了競爭者（比劫），或者你容易因為情緒衝動而耗散財富。這種困境的本質是「水無木不生火」。你必須通過【食傷（木）】來作為橋樑——不要直接去追逐快錢（火），而是要專注於提升你的技術、才華、創意或服務質量（木），讓木自然去生火，財富才會穩固。</p>
+      <p><strong>財富轉化核心邏輯：</strong>命局中水多火微，意味著你周圍充滿了競爭者（比劫），或者你容易因為情緒衝動而耗散財富（十惡大敗）。這種困境的本質是「水無木不生火」。你必須通過【食傷（木）】來作為橋樑——不要直接去追逐快錢（火），而是要專注於提升你的技術、才華、創意或服務質量（木），讓木自然去生火，財富才會穩固。</p>
       <p><strong>風控防禦機制：</strong>絕對禁止任何形式的借貸、擔保或與熟人/朋友（比劫）進行界限不清的合夥創業。你的錢只要一離開自己的掌控，就極難收回。現金流必須轉化為固定資產或抗通脹的實體（用土制水），才能真正鎖住財富。</p>
     </div>
   </div>
@@ -1114,10 +1099,9 @@ body::after {
   </div>
 
   <div class="card" style="border-color:rgba(96,168,240,0.3)">
-    <div class="card-ti" style="color:var(--pb)">💉 五行塑體與微恙化解（強推醫療與醫美干預）</div>
-    <p><strong>脂肪堆積的五行成因：</strong>命局金水傷官/水旺生於冬月，水冷土凍。在五行氣機上，土主運化，水主寒濕。當壓力驟增引發內耗時，中焦（脾胃）凝滯，寒濕之氣極易導致水分與脂肪在腰腹中焦及下焦頑固囤積。</p>
-    <p><strong>五行解法 1 - 引火暖水與疏導：</strong>祛寒化濕是核心。推薦採用艾灸、汗蒸、遠紅外理療直達下焦，以“離火”之氣溫煦氣血；輔以木系精油（疏木理氣）打破寒濕的鬱結。</p>
-    <p><strong>五行解法 2 - 醫療介入（主動應象）：</strong>想通過打針（如減重筆/醫美微創）來破局，從命理學角度看，極其推薦！命盤帶有【羊刃】與【病符】，這本身代表金屬利器與輕微血光。通過醫療手段（打針、微創手術、針灸）來塑體或保養，不僅能解決身材/健康困擾，更是極其高維的「主動應象」——用可控的、對自身有益的「小血光」，去化解命局中潛在的意外之災（破血光之災）。</p>
+    <div class="card-ti" style="color:var(--pb)">💉 醫療介入與主動應象（化解寒氣與血光）</div>
+    <p><strong>主動應象的五行解法：</strong>命盤帶有【羊刃】與【兼刃】等神煞，這在命理象法中代表著潛在的手術、利器或慢性病困擾。從命理學角度看，極其推薦通過定期的醫療手段（如洗牙、獻血、針灸艾灸、或基礎的醫美光電項目）來「主動應象」。</p>
+    <p><strong>引火驅寒：</strong>特別推薦【艾灸、汗蒸、熱石理療】等帶有強烈「火」屬性的保養方式！用這種可控的外部熱能，去強行驅散你命局中的極寒之氣。這不僅能改善體質、減輕水腫，更是疏通因寒凝而導致的心理淤堵，是極其高維的命理干預手段。</p>
   </div>
 
 </section>
@@ -1200,7 +1184,7 @@ body::after {
     <ul>
       <li><strong>即將在2029年步入庚辰大運的過渡風險：</strong> 從木運（己卯）轉向金水旺地（庚辰，印生劫財），未來的挑戰是「精神內耗的加劇」。要提前學會情緒管理，建立不依賴外界評價的內在價值體系。</li>
       <li><strong>亥亥自刑的情緒深淵：</strong>深夜是你最危險的時候。當你開始反覆思考「為什麼他要這樣對我」、「為什麼我這麼倒霉」時，請立刻停止！物理上站起來去喝杯水或睡覺。不要在內耗中浪費你的生命力。</li>
-      <li><strong>丁癸沖帶來的財務黑洞：</strong>你的偏財（丁火）極其脆弱，容易被比劫（癸水）奪走。千萬不要借錢給朋友，不要盲目跟風投資高風險項目。現金為王，或者轉化為不動產（用土制水）才是最安全的。</li>
+      <li><strong>丁癸沖帶來的財務黑洞：</strong>你的偏財（丁火）極其脆弱，容易被比劫（癸水）奪走（十惡大敗）。千萬不要借錢給朋友，不要盲目跟風投資高風險項目。現金為王，或者轉化為不動產（用土制水）才是最安全的。</li>
       <li><strong>親密關係中的「過度防禦」：</strong>你太怕受傷，所以有時候會先亮出刺（羊刃）。在未來的感情中，試著慢下來，不要遇到一點問題就覺得「大不了我自己一個人過」。</li>
     </ul>
   </div>
@@ -1239,10 +1223,19 @@ body::after {
       <circle cx="240" cy="32" r="4" fill="var(--pb)"/>
     </svg>
   </div>
-  <div class="verdict-seal-main">命盤深度解讀</div>
+  <div class="verdict-seal">命盤深度解讀</div>
 </div>
 
+<div class="footer">
+  <div class="footer-logo">ZenCode</div>
+  <div class="footer-txt">
+    本報告依據八字原局五行生克推演精算而成<br>
+    引經：《窮通寶鑒》《滴天髓》《三命通會》《淵海子平》《子平真詮》《神峰通考》<br>
+    僅供命理研討參考，不構成任何具體投資、醫學、法律決策建議
+  </div>
 </div>
+
+</main>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
 <script>
 const observer = new IntersectionObserver((entries) => {
@@ -1253,7 +1246,7 @@ const observer = new IntersectionObserver((entries) => {
     }
   });
 }, { threshold: 0.08 });
-document.querySelectorAll('.card, .yun-card, .shensha-item, .warning-box, .oppo-box, .bone-wrap, .interaction-table, .rt-item, .ws-item, .major-card, .wx-power-card').forEach(el => {
+document.querySelectorAll('.card, .yun-card, .shensha-item, .warning-box, .oppo-box, .bone-wrap, .interaction-table, .rt-item, .ws-item, .major-card, .wx-power-card, .video-box').forEach(el => {
   el.style.opacity = '0';
   el.style.transform = 'translateY(16px)';
   el.style.transition = 'opacity 0.7s ease, transform 0.7s ease';
@@ -1419,7 +1412,7 @@ document.addEventListener('mouseout',e=>{if(e.target.closest('.anchor'))hideTool
   });
 })();
 
-/* ══ 动态深蓝水下粒子背景 ══ */
+/* ══ 动态深蓝水下粒子背景 (透明底融合版) ══ */
 (function(){
   const canvas = document.getElementById('bgCanvas');
   const ctx2d = canvas.getContext('2d');
@@ -1445,15 +1438,12 @@ document.addEventListener('mouseout',e=>{if(e.target.closest('.anchor'))hideTool
 
   function drawFrame() {
     time++;
-    const bgGrd = ctx2d.createLinearGradient(0, 0, 0, H);
-    bgGrd.addColorStop(0, '#020406');
-    bgGrd.addColorStop(0.65, '#060a12');
-    bgGrd.addColorStop(1, '#0a1424');
-    ctx2d.fillStyle = bgGrd;
-    ctx2d.fillRect(0, 0, W, H);
+    // 完全透明清除，以透出 body::before 的 CSS 漸變與噪點背景
+    ctx2d.clearRect(0, 0, W, H);
 
     ctx2d.globalCompositeOperation = 'screen';
     
+    // 底部微微泛起的深海光輝
     const bottomGlow = ctx2d.createLinearGradient(0, H - 200, 0, H);
     bottomGlow.addColorStop(0, 'rgba(0, 0, 0, 0)');
     bottomGlow.addColorStop(1, 'rgba(30, 80, 160, 0.15)');
