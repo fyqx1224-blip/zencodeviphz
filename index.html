@@ -121,12 +121,12 @@ body::after {
 .birth-bar .dot{color:var(--pb);font-size:0.4rem;opacity:0.6}
 .birth-bar .hl{color:var(--pb);font-weight:500}
 
-/* 四柱颜色 */
-.c-wood  { color:var(--wood); }
-.c-fire  { color:var(--fire); }
-.c-earth { color:var(--earth); }
-.c-metal { color:var(--metal); }
-.c-water { color:var(--water); }
+/* 四柱颜色 (强制最高优先级，修复失灵) */
+.c-wood  { color:var(--wood) !important; }
+.c-fire  { color:var(--fire) !important; }
+.c-earth { color:var(--earth) !important; }
+.c-metal { color:var(--metal) !important; }
+.c-water { color:var(--water) !important; }
 
 .pillars{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:36px;width:100%;max-width:640px}
 .pillar{display:flex;flex-direction:column;align-items:center;background:rgba(8,12,20,0.88);border:1px solid rgba(64,128,200,0.15);padding:20px 12px;border-radius:6px;backdrop-filter:blur(20px);transition:all .4s;position:relative;overflow:hidden;box-shadow:0 8px 24px rgba(0,0,0,0.35)}
@@ -162,6 +162,12 @@ body::after {
 .card p:last-child{margin-bottom:0}
 
 .quote{border-left:2px solid var(--pb);padding:14px 20px;margin:14px 0 20px;background:rgba(64,128,200,0.06);font-family:'Noto Serif TC',serif;font-style:italic;color:rgba(230,240,250,0.85);font-size:0.88rem;line-height:2.05;letter-spacing:0.05em}
+
+/* 视频框 */
+.video-box{position:relative;width:100%;border-radius:6px;overflow:hidden;border:1px solid rgba(64,128,200,0.2);background:rgba(4,6,9,0.6);box-shadow:0 8px 24px rgba(0,0,0,0.5);margin-top:24px;margin-bottom:24px;}
+.video-box video{display:block;width:100%;height:auto;max-height:480px;object-fit:cover;outline:none}
+.video-fallback{padding:40px;text-align:center;color:rgba(230,240,250,0.5);font-family:'Noto Sans TC',sans-serif;font-size:0.85rem;line-height:2}
+.video-fallback-icon{font-size:2.5rem;margin-bottom:12px;opacity:0.4;display:block}
 
 /* 五行模块 */
 .wx-sec-title{font-size:0.95rem;color:var(--pb);font-weight:600;margin-bottom:16px;letter-spacing:0.05em;display:flex;align-items:center;gap:8px}
@@ -266,6 +272,17 @@ body::after {
 .ws-name{font-family:'Ma Shan Zheng',cursive;font-size:1.1rem;color:var(--pb);margin-bottom:10px}
 .ws-desc{font-size:0.82rem;color:rgba(230,240,250,0.85);line-height:1.9;font-family:'Noto Sans TC',sans-serif;font-weight:300}
 
+.chart-wrap{background:rgba(8,12,20,0.88);border:1px solid rgba(64,128,200,0.15);border-radius:6px;padding:28px 20px;margin:24px 0;position:relative;backdrop-filter:blur(24px)}
+.chart-title{font-family:'Noto Sans TC',sans-serif;font-size:0.72rem;color:var(--pb);letter-spacing:0.2em;margin-bottom:16px;text-align:center}
+.chart-inner{position:relative;width:100%;height:320px}
+
+/* ══ 称骨诀 CSS 补充 ══ */
+.bone-wrap { display:flex; align-items:center; gap:40px; padding:36px; background:rgba(8,12,20,0.88); border:1px solid rgba(64,128,200,0.15); border-radius:6px; margin:28px 0; backdrop-filter:blur(16px); }
+.bone-num-wrap { text-align:center; flex-shrink:0; }
+.bone-num { font-family:'Ma Shan Zheng',cursive; font-size:4.5rem; color:var(--pb); line-height:1; text-shadow:0 0 30px rgba(96,168,240,0.3); }
+.bone-unit { font-size:1.2rem; color:var(--pb); font-family:'Noto Serif TC',serif; margin:0 4px; }
+.bone-body p { font-size:0.94rem; line-height:2.35; color:rgba(230,240,250,0.88); font-weight:300; }
+
 /* ══ 神煞与其他网格 ══ */
 .ss-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin:24px 0}
 .ss-item{border:1px solid rgba(64,128,200,0.15);border-radius:6px;padding:26px;background:rgba(8,12,20,0.88);transition:all .35s;backdrop-filter:blur(24px)}
@@ -286,10 +303,6 @@ body::after {
 .q-great{background:rgba(184,163,133,0.2);color:#E6F0FA;border:1px solid rgba(184,163,133,0.4)}
 .q-good{background:rgba(64,128,200,0.12);color:#E6F0FA;border:1px solid rgba(64,128,200,0.3)}
 .q-warn{background:rgba(212,98,42,0.2);color:#F0D0C8;border:1px solid rgba(212,98,42,0.4)}
-
-.chart-wrap{background:rgba(8,12,20,0.88);border:1px solid rgba(64,128,200,0.15);border-radius:6px;padding:28px 20px;margin:24px 0;position:relative;backdrop-filter:blur(24px)}
-.chart-title{font-family:'Noto Sans TC',sans-serif;font-size:0.72rem;color:var(--pb);letter-spacing:0.2em;margin-bottom:16px;text-align:center}
-.chart-inner{position:relative;width:100%;height:320px}
 
 /* ══ 地图标签与其他 ══ */
 .map-module{display:flex;flex-direction:column;gap:28px;background:rgba(8,12,20,0.88);border:1px solid rgba(64,128,200,0.2);border-radius:6px;padding:36px 40px;margin:20px 0;backdrop-filter:blur(20px)}
@@ -396,6 +409,8 @@ body::after {
   .pt-col.right{padding-left:0}
   .pt-item{text-align:left}
   .pt-item::after,.pt-col.right .pt-item::after{display:none}
+  .video-fallback-icon{font-size:2rem;}
+  .bone-wrap{flex-direction:column;gap:16px;text-align:center;padding:24px 16px;}
 }
 @media(max-width:400px){.p-tg,.p-dz{font-size:1.35rem}.p-nayin{display:none}}
 </style>
@@ -494,6 +509,21 @@ body::after {
     <p style="margin-top:16px;border-top:1px dashed rgba(64,128,200,0.15);padding-top:16px;color:var(--pb)">
       <strong>格局綜論：水勢浩蕩，不喜強行壓制，唯有疏導（食傷）與溫暖（財星）方能成就大器。用神首選【木、火】。最忌【金、水】。</strong>
     </p>
+  </div>
+
+  <div class="card">
+    <div class="card-ti">命局能量視覺化演繹：深海的暗流與生機</div>
+    <p>請想像：<strong>一片深不見底的冬日海洋（雙亥水），海面上漂浮著冰冷的泥沙（己丑土）。</strong>這片海域蘊藏著吞噬一切的龐大能量（極強的自我與固執），但因為氣候極寒，顯得有些生機黯淡。唯一的希望，是海岸邊生長著一片堅韌的樹林（卯木），它們努力吸收著海水，並在微弱的星光（丁火）下試圖開花結果。這片海洋最深切的渴望，是春天的暖陽（火運）與廣闊的森林（木運）來引導這股力量。</p>
+    <div class="video-box">
+      <video controls playsinline preload="metadata" style="width:100%; border-radius:6px;">
+        <source src="vedo.mp4" type="video/mp4">
+        <div class="video-fallback">
+          <span class="video-fallback-icon">🌊</span>
+          <strong style="color:var(--pb)">視覺推演加載中</strong><br>
+          請確認 vedo.mp4 與本文件位於同一目錄
+        </div>
+      </video>
+    </div>
   </div>
 
   <div class="wx-sec-title">五行力量分布</div>
@@ -688,7 +718,7 @@ body::after {
     </div>
     <div class="ss-item">
       <div class="ss-name" style="color:var(--earth)">天廚</div>
-      <div class="ss-desc">天生自帶食神口福，不僅在現實中不缺物質供養，更代表在藝術與精神領域能源源不斷地獲得豐厚靈感滋養。</div>
+      <div class="ss-desc">天生自帶食神口福，不僅在現實中不缺物質供养，更代表在藝術與精神領域能源源不斷地獲得豐厚靈感滋養。</div>
     </div>
     <div class="ss-item">
       <div class="ss-name" style="color:var(--water)">咸池</div>
@@ -1135,13 +1165,13 @@ body::after {
     </div>
   </div>
 
-  <div class="bone-display">
-    <div>
+  <div class="bone-wrap">
+    <div class="bone-num-wrap">
       <div class="bone-num">4<span class="bone-unit">兩</span>5<span class="bone-unit">錢</span></div>
     </div>
-    <div class="bone-text">
+    <div class="bone-body">
       <p>《袁天罡稱骨歌》4兩5錢：「名利推求竟若何，前番辛苦後奔波；命中難養男和女，骨肉扶持也不多。」（註：此為古典斷語，需結合現代語境理解）</p>
-      <p>這段骨重斷語點出了你命局的核心：**一生靠自己，親情緣薄，先苦後甜**。你的命盤水多無依，確實難以得到六親的強大助力（骨肉扶持不多），凡事都要親力親為（前番辛苦）。但「名利推求」最終會在你中晚年（特別是未來的火運）給予你豐厚的回報。這是一個標準的「白手起家、大器晚成」的劇本。</p>
+      <p>這段骨重斷語點出了你命局的核心：<strong>一生靠自己，親情緣薄，先苦後甜</strong>。你的命盤水多無依，確實難以得到六親的強大助力（骨肉扶持不多），凡事都要親力親為（前番辛苦）。但「名利推求」最終會在你中晚年（特別是未來的火運）給予你豐厚的回報。這是一個標準的「白手起家、大器晚成」的劇本。</p>
     </div>
   </div>
 </section>
@@ -1177,18 +1207,18 @@ body::after {
 </section>
 
 <div class="verdict">
-  <div class="verdict-title-wrapper" style="display:flex;align-items:center;justify-content:center;gap:24px;margin-bottom:36px">
-    <svg width="40" height="60" viewBox="0 0 60 80" style="opacity:0.8;transform:scaleX(-1)">
-      <path d="M30 80 C10 60 10 30 30 0 C50 30 50 60 30 80 Z" fill="none" stroke="var(--water)" stroke-width="1.5"/>
-      <path d="M30 65 C20 50 25 35 30 20 C35 35 40 50 30 65 Z" fill="none" stroke="var(--pb)" stroke-width="1"/>
+  <div class="verdict-divider" style="margin-bottom:36px;">
+    <svg width="24" height="60" viewBox="0 0 24 60" style="opacity:0.8; margin-right:20px;">
+      <path d="M12 0 C 24 30, 24 48, 12 60 C 0 48, 0 30, 12 0 Z" fill="none" stroke="var(--water)" stroke-width="1.5"/>
+      <path d="M12 15 C 18 35, 18 45, 12 52 C 6 45, 6 35, 12 15 Z" fill="none" stroke="var(--pb)" stroke-width="1"/>
     </svg>
-    <div class="verdict-main" style="margin-bottom:0">癸水歸海</div>
-    <svg width="40" height="60" viewBox="0 0 60 80" style="opacity:0.8">
-      <path d="M30 80 C10 60 10 30 30 0 C50 30 50 60 30 80 Z" fill="none" stroke="var(--water)" stroke-width="1.5"/>
-      <path d="M30 65 C20 50 25 35 30 20 C35 35 40 50 30 65 Z" fill="none" stroke="var(--pb)" stroke-width="1"/>
+    <div class="verdict-kw" style="margin-bottom:0">癸水歸海</div>
+    <svg width="24" height="60" viewBox="0 0 24 60" style="opacity:0.8; margin-left:20px;">
+      <path d="M12 0 C 24 30, 24 48, 12 60 C 0 48, 0 30, 12 0 Z" fill="none" stroke="var(--water)" stroke-width="1.5"/>
+      <path d="M12 15 C 18 35, 18 45, 12 52 C 6 45, 6 35, 12 15 Z" fill="none" stroke="var(--pb)" stroke-width="1"/>
     </svg>
   </div>
-  <div class="verdict-text">
+  <div class="verdict-body">
     你是一片深不見底的海洋，<br>
     表面上平靜無波，<br>
     內心卻藏著吞噬一切的力量。<br><br>
@@ -1203,13 +1233,13 @@ body::after {
     <em style="color:var(--pb);font-size:0.9rem;">熬過寒冬，用你的才智劈開迷霧，未來南方盛夏的火光，定會將這片汪洋照耀得無比璀璨。</em>
   </div>
   <div class="verdict-divider">
-    <svg width="240" height="32" viewBox="0 0 480 64" style="opacity:0.7">
-      <path d="M0 50 Q60 20 120 40 Q180 60 240 32 Q300 4 360 40 Q420 60 480 50" stroke="var(--water)" stroke-width="1.5" fill="none"/>
-      <path d="M200 32 C210 20 215 12 220 20 C225 10 228 6 232 14 C236 6 239 10 244 20 C248 12 252 20 260 32" fill="var(--pb)" stroke="none"/>
-      <ellipse cx="240" cy="28" rx="5" ry="3" fill="var(--ac)"/>
+    <svg width="300" height="40" viewBox="0 0 480 64" style="opacity:0.7">
+      <path d="M0 32 C 120 80, 360 -16, 480 32" stroke="var(--water)" stroke-width="2" fill="none"/>
+      <path d="M0 40 C 120 88, 360 -8, 480 40" stroke="rgba(64,128,200,0.4)" stroke-width="1" fill="none"/>
+      <circle cx="240" cy="32" r="4" fill="var(--pb)"/>
     </svg>
   </div>
-  <div class="verdict-seal">命盤深度解讀</div>
+  <div class="verdict-seal-main">命盤深度解讀</div>
 </div>
 
 </div>
@@ -1223,7 +1253,7 @@ const observer = new IntersectionObserver((entries) => {
     }
   });
 }, { threshold: 0.08 });
-document.querySelectorAll('.card, .yun-card, .shensha-item, .warning-box, .oppo-box, .bone-display, .interaction-table, .rt-item, .ws-item, .major-card, .wx-power-card').forEach(el => {
+document.querySelectorAll('.card, .yun-card, .shensha-item, .warning-box, .oppo-box, .bone-wrap, .interaction-table, .rt-item, .ws-item, .major-card, .wx-power-card').forEach(el => {
   el.style.opacity = '0';
   el.style.transform = 'translateY(16px)';
   el.style.transition = 'opacity 0.7s ease, transform 0.7s ease';
@@ -1389,7 +1419,7 @@ document.addEventListener('mouseout',e=>{if(e.target.closest('.anchor'))hideTool
   });
 })();
 
-/* ══ 动态深蓝水下粒子背景 (替换原先的红色火焰) ══ */
+/* ══ 动态深蓝水下粒子背景 ══ */
 (function(){
   const canvas = document.getElementById('bgCanvas');
   const ctx2d = canvas.getContext('2d');
