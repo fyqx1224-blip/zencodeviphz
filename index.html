@@ -9,9 +9,8 @@
 * { margin:0; padding:0; box-sizing:border-box; }
 html, body {
   background:#040609 !important;
-  background-color:#040609 !important;
   color:#ffffff;
-  font-family:'Noto Serif TC',serif;
+  font-family:'Noto Serif TC',serif; /* 全局默认衬线体 */
   overflow-x:hidden;
   position:relative;
 }
@@ -30,35 +29,56 @@ html, body {
   --abg: rgba(40,88,160,0.08);
   --ac2: #3870B8;
   --trans: 1.2s cubic-bezier(0.4,0,0.2,1);
-  --wood: #6DB56A; --fire: #D95C43; --earth: #B8A385; --metal: #C2C8D1; --water: #5C82A6;
+  /* 优化暗黑模式下的五行色阶对比度 */
+  --wood: #7AC576; 
+  --fire: #E86C4F; 
+  --earth:#C4B094; 
+  --metal:#D0D6DF; 
+  --water:#60A8F0;
 }
 
+/* 修复1: Canvas 动态背景置于最底层 */
+#bgCanvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* 静态渐变层 */
 body::before {
   content:''; position:fixed; inset:0;
   background-image:
     radial-gradient(ellipse at 22% 48%, rgba(64,128,200,0.09) 0%, transparent 60%),
     radial-gradient(ellipse at 76% 22%, rgba(96,168,240,0.05) 0%, transparent 55%),
     radial-gradient(ellipse at 52% 80%, rgba(30,80,160,0.06) 0%, transparent 50%);
-  pointer-events:none; z-index:0;
+  pointer-events:none; z-index:1;
 }
+
+/* 噪点质感层 */
 body::after {
   content:''; position:fixed; inset:-200%;
   background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
-  opacity:0.35; pointer-events:none; z-index:1;
+  opacity:0.35; pointer-events:none; z-index:2;
   animation:grain 0.5s steps(1) infinite;
 }
+
 @keyframes grain {
   0%,100%{transform:translate(0,0)}10%{transform:translate(-2%,-3%)}20%{transform:translate(3%,2%)}
   30%{transform:translate(-1%,4%)}40%{transform:translate(2%,-1%)}50%{transform:translate(-3%,2%)}
   60%{transform:translate(1%,-2%)}70%{transform:translate(3%,3%)}80%{transform:translate(-2%,1%)}90%{transform:translate(1%,-3%)}
 }
 
-/* 滾動條 */
+/* 滚条 */
 ::-webkit-scrollbar{width:4px}
 ::-webkit-scrollbar-track{background:rgba(0,0,0,0.3)}
 ::-webkit-scrollbar-thumb{background:rgba(64,128,200,0.4);border-radius:2px}
 
-.container { position:relative; z-index:2; max-width:960px; margin:0 auto; padding:0 28px 140px; }
+/* 内容层必须高于背景层 */
+.container { position:relative; z-index:10; max-width:960px; margin:0 auto; padding:0 28px 140px; }
 
 /* ══ 頂部列與音效 ══ */
 .top-bar{position:fixed;top:0;left:0;right:0;z-index:990;height:52px;background:rgba(4,6,9,0.88);border-bottom:1px solid rgba(64,128,200,0.25);backdrop-filter:blur(24px);display:flex;align-items:center;justify-content:space-between;padding:0 32px}
@@ -113,12 +133,12 @@ body::after {
 .birth-bar .dot{color:var(--pb);font-size:0.4rem;opacity:0.6}
 .birth-bar .hl{color:var(--pb);font-weight:500}
 
-/* 四柱颜色 (强制最高优先级，修复失灵) */
-.c-wood  { color:var(--wood) !important; }
-.c-fire  { color:var(--fire) !important; }
-.c-earth { color:var(--earth) !important; }
-.c-metal { color:var(--metal) !important; }
-.c-water { color:var(--water) !important; }
+/* 四柱与干支颜色 (强制最高优先级) */
+.c-wood  { color:var(--wood) !important; text-shadow: 0 0 8px rgba(122,197,118,0.3); }
+.c-fire  { color:var(--fire) !important; text-shadow: 0 0 8px rgba(232,108,79,0.3); }
+.c-earth { color:var(--earth) !important; text-shadow: 0 0 8px rgba(196,176,148,0.3); }
+.c-metal { color:var(--metal) !important; text-shadow: 0 0 8px rgba(208,214,223,0.3); }
+.c-water { color:var(--water) !important; text-shadow: 0 0 8px rgba(96,168,240,0.3); }
 
 .pillars{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:36px;width:100%;max-width:640px}
 .pillar{display:flex;flex-direction:column;align-items:center;background:rgba(8,12,20,0.88);border:1px solid rgba(64,128,200,0.15);padding:20px 12px;border-radius:6px;backdrop-filter:blur(20px);transition:all .4s;position:relative;overflow:hidden;box-shadow:0 8px 24px rgba(0,0,0,0.35)}
@@ -130,8 +150,8 @@ body::after {
 
 .p-lbl{font-size:0.58rem;letter-spacing:0.25em;color:rgba(230,240,250,0.5);margin-bottom:8px;font-family:'Noto Sans TC',sans-serif}
 .p-tg-god{font-size:0.6rem;color:var(--pb);margin-bottom:6px;font-family:'Noto Sans TC',sans-serif;letter-spacing:0.08em;white-space:nowrap}
-.p-tg{font-family:'Ma Shan Zheng',cursive;font-size:clamp(1.8rem,5vw,2.8rem);line-height:1.1;margin-bottom:6px}
-.p-dz{font-family:'Ma Shan Zheng',cursive;font-size:clamp(1.8rem,5vw,2.8rem);line-height:1.1}
+.p-tg,.p-dz{font-family:'Ma Shan Zheng',cursive;font-size:clamp(1.8rem,5vw,2.8rem);line-height:1.1}
+.p-tg {margin-bottom:6px}
 .p-dz-god{font-size:0.6rem;color:var(--pb);margin-top:8px;font-family:'Noto Sans TC',sans-serif;letter-spacing:0.08em;white-space:nowrap}
 .p-hidden{font-size:0.52rem;color:rgba(230,240,250,0.6);margin-top:6px;font-family:'Noto Sans TC',sans-serif;letter-spacing:0.05em;border-top:1px solid rgba(64,128,200,0.2);padding-top:6px;width:100%;text-align:center;line-height:1.4}
 .p-nayin{font-size:0.5rem;color:rgba(180,210,240,0.85);margin-top:8px;font-family:'Noto Sans TC',sans-serif;letter-spacing:0.08em;background:rgba(64,128,200,0.12);padding:3px 8px;border-radius:4px;white-space:nowrap}
@@ -143,20 +163,20 @@ body::after {
 .sec-ti-wrap{flex:1}
 .sec-ti{font-size:1.38rem;font-weight:600;color:var(--pb);letter-spacing:0.09em;line-height:1.4}
 .sec-en{font-size:0.6rem;letter-spacing:0.36em;color:var(--pb);opacity:0.6;font-family:'Noto Sans TC',sans-serif;margin-top:5px;text-transform:uppercase}
-.sec-intro{font-size:0.92rem;line-height:2.25;color:rgba(230,240,250,0.75);margin-top:12px;font-family:'Noto Sans TC',sans-serif;font-weight:300;letter-spacing:0.02em}
+.sec-intro{font-size:0.92rem;line-height:2.25;color:rgba(230,240,250,0.75);margin-top:12px;font-weight:300;letter-spacing:0.02em}
 
 .card{background:rgba(8,12,20,0.88);border:1px solid rgba(64,128,200,0.12);border-radius:6px;padding:36px 40px;margin-bottom:18px;position:relative;overflow:hidden;backdrop-filter:blur(24px);transition:border-color .4s,box-shadow .4s}
 .card:hover{border-color:rgba(96,168,240,0.35);box-shadow:0 8px 32px rgba(0,0,0,0.4)}
 .card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:linear-gradient(180deg,transparent,var(--pb) 28%,var(--p) 72%,transparent)}
-.card-ti{font-size:1.04rem;color:var(--pb);font-weight:600;margin-bottom:20px;letter-spacing:0.05em;display:flex;align-items:center;gap:9px;line-height:1.5}
+.card-ti{font-size:1.04rem;color:var(--pb);font-weight:600;margin-bottom:20px;letter-spacing:0.05em;display:flex;align-items:center;gap:9px;line-height:1.5;font-family:'Noto Sans TC',sans-serif;}
 .card-ti::before{content:'◆';font-size:0.38rem;color:var(--pb);flex-shrink:0}
 .card p{font-size:0.94rem;line-height:2.3;color:rgba(230,240,250,0.88);font-weight:300;margin-bottom:14px;text-align:justify;letter-spacing:0.02em}
 .card p:last-child{margin-bottom:0}
 
-.quote{border-left:2px solid var(--pb);padding:14px 20px;margin:14px 0 20px;background:rgba(64,128,200,0.06);font-family:'Noto Serif TC',serif;font-style:italic;color:rgba(230,240,250,0.85);font-size:0.88rem;line-height:2.05;letter-spacing:0.05em}
+.quote{border-left:2px solid var(--pb);padding:14px 20px;margin:14px 0 20px;background:rgba(64,128,200,0.06);font-style:italic;color:rgba(230,240,250,0.85);font-size:0.88rem;line-height:2.05;letter-spacing:0.05em}
 
 /* 五行模块 */
-.wx-sec-title{font-size:0.95rem;color:var(--pb);font-weight:600;margin-bottom:16px;letter-spacing:0.05em;display:flex;align-items:center;gap:8px}
+.wx-sec-title{font-size:0.95rem;color:var(--pb);font-weight:600;margin-bottom:16px;letter-spacing:0.05em;display:flex;align-items:center;gap:8px;font-family:'Noto Sans TC',sans-serif;}
 .wx-sec-title::before{content:'◆';font-size:0.6rem;color:var(--pb)}
 .wx-power-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-bottom:36px}
 .wx-power-card{background:rgba(8,12,20,0.5);border:1px solid rgba(64,128,200,0.12);border-radius:8px;padding:24px 10px;text-align:center;transition:all .3s;backdrop-filter:blur(16px)}
@@ -176,28 +196,28 @@ body::after {
 .tg-row{display:flex;align-items:center;margin-bottom:12px;gap:16px}
 .tg-row:last-child{margin-bottom:0}
 .tg-label-wrap{width:105px;flex-shrink:0;text-align:right}
-.tg-label{font-size:0.8rem;color:var(--pb);font-weight:500;margin-bottom:2px;white-space:nowrap}
+.tg-label{font-size:0.8rem;color:var(--pb);font-weight:500;margin-bottom:2px;white-space:nowrap;font-family:'Noto Sans TC',sans-serif;}
 .tg-label.empty{color:rgba(230,240,250,0.4)}
 .tg-sub{font-size:0.55rem;font-family:'Noto Sans TC',sans-serif;color:rgba(230,240,250,0.5);letter-spacing:0.05em;white-space:nowrap}
 .tg-track{flex-grow:1;height:8px;background:rgba(0,0,0,0.4);border-radius:4px;position:relative;overflow:hidden;box-shadow:inset 0 1px 3px rgba(0,0,0,0.5)}
 .tg-fill{height:100%;border-radius:4px;position:relative;transition:width 1.2s cubic-bezier(0.2,0.8,0.2,1)}
 .tg-fill::after{content:'';position:absolute;top:0;right:0;bottom:0;width:20px;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.4));border-radius:0 4px 4px 0}
-.tg-fill.fire{background:linear-gradient(90deg,rgba(217,92,67,0.4),var(--fire));box-shadow:0 0 15px rgba(217,92,67,0.5)}
-.tg-fill.water{background:linear-gradient(90deg,rgba(92,130,166,0.4),var(--water));box-shadow:0 0 15px rgba(92,130,166,0.5)}
-.tg-fill.metal{background:linear-gradient(90deg,rgba(194,200,209,0.3),var(--metal));box-shadow:0 0 15px rgba(194,200,209,0.4)}
-.tg-fill.wood{background:linear-gradient(90deg,rgba(109,181,106,0.4),var(--wood));box-shadow:0 0 15px rgba(109,181,106,0.5)}
-.tg-fill.earth{background:linear-gradient(90deg,rgba(184,163,133,0.4),var(--earth));box-shadow:0 0 15px rgba(184,163,133,0.5)}
+.tg-fill.fire{background:linear-gradient(90deg,rgba(232,108,79,0.4),var(--fire));box-shadow:0 0 15px rgba(232,108,79,0.5)}
+.tg-fill.water{background:linear-gradient(90deg,rgba(96,168,240,0.4),var(--water));box-shadow:0 0 15px rgba(96,168,240,0.5)}
+.tg-fill.metal{background:linear-gradient(90deg,rgba(208,214,223,0.3),var(--metal));box-shadow:0 0 15px rgba(208,214,223,0.4)}
+.tg-fill.wood{background:linear-gradient(90deg,rgba(122,197,118,0.4),var(--wood));box-shadow:0 0 15px rgba(122,197,118,0.5)}
+.tg-fill.earth{background:linear-gradient(90deg,rgba(196,176,148,0.4),var(--earth));box-shadow:0 0 15px rgba(196,176,148,0.5)}
 .tg-fill.empty{background:transparent;box-shadow:none}
 .tg-pct{width:40px;flex-shrink:0;font-family:'Noto Sans TC',sans-serif;font-size:0.8rem;color:#E6F0FA;font-weight:600;text-align:left}
 .tg-pct.empty{color:rgba(230,240,250,0.3)}
 
 /* ══ 盒子与其他 ══ */
 .oppo-box{background:linear-gradient(135deg,rgba(64,128,200,0.09),rgba(64,128,200,0.02));border:1px solid rgba(64,128,200,0.35);border-radius:6px;padding:32px 36px;margin:20px 0;backdrop-filter:blur(20px)}
-.oppo-box h3{color:var(--pb);font-size:1.04rem;margin-bottom:20px;letter-spacing:0.09em;display:flex;align-items:center;gap:9px}
-.warn-box{background:linear-gradient(135deg,rgba(212,98,42,0.08),rgba(212,98,42,0.02));border:1px solid rgba(212,98,42,0.3);border-radius:6px;padding:32px 36px;margin:20px 0;backdrop-filter:blur(20px)}
-.warn-box h3{color:var(--fire);font-size:1.04rem;margin-bottom:20px;letter-spacing:0.09em;display:flex;align-items:center;gap:9px}
+.oppo-box h3{color:var(--pb);font-size:1.04rem;margin-bottom:20px;letter-spacing:0.09em;display:flex;align-items:center;gap:9px;font-family:'Noto Sans TC',sans-serif;}
+.warn-box{background:linear-gradient(135deg,rgba(232,108,79,0.08),rgba(232,108,79,0.02));border:1px solid rgba(232,108,79,0.3);border-radius:6px;padding:32px 36px;margin:20px 0;backdrop-filter:blur(20px)}
+.warn-box h3{color:var(--fire);font-size:1.04rem;margin-bottom:20px;letter-spacing:0.09em;display:flex;align-items:center;gap:9px;font-family:'Noto Sans TC',sans-serif;}
 .taisui-box{background:linear-gradient(135deg,rgba(64,128,200,0.06),rgba(0,0,0,0.5));border:1px solid rgba(64,128,200,0.3);border-radius:6px;padding:32px 36px;margin:20px 0;backdrop-filter:blur(20px)}
-.taisui-box h3{color:var(--pb);font-size:1.04rem;margin-bottom:20px;letter-spacing:0.09em;display:flex;align-items:center;gap:9px}
+.taisui-box h3{color:var(--pb);font-size:1.04rem;margin-bottom:20px;letter-spacing:0.09em;display:flex;align-items:center;gap:9px;font-family:'Noto Sans TC',sans-serif;}
 
 .strat-list{list-style:none}
 .strat-list li{font-size:0.92rem;line-height:2.15;color:rgba(230,240,250,0.88);font-weight:300;padding-left:20px;position:relative;margin-bottom:12px;letter-spacing:0.02em}
@@ -206,37 +226,37 @@ body::after {
 
 /* ══ 时间线 ══ */
 .romance-timeline{margin:28px 0}
-.rt-title{font-size:0.95rem;color:var(--pb);font-weight:600;margin-bottom:18px;letter-spacing:0.06em;display:flex;align-items:center;gap:9px}
+.rt-title{font-size:0.95rem;color:var(--pb);font-weight:600;margin-bottom:18px;letter-spacing:0.06em;display:flex;align-items:center;gap:9px;font-family:'Noto Sans TC',sans-serif;}
 .rt-title::before{content:'❧';color:var(--pb);font-size:0.75rem;flex-shrink:0}
 .rt-items{display:flex;flex-direction:column}
 .rt-item{display:flex;position:relative}
 .rt-line{display:flex;flex-direction:column;align-items:center;width:28px;flex-shrink:0}
 .rt-dot{width:12px;height:12px;border-radius:50%;border:2px solid;flex-shrink:0;margin-top:3px;position:relative;z-index:1}
 .rt-dot.high{border-color:var(--pb);background:rgba(64,128,200,0.3);box-shadow:0 0 10px rgba(64,128,200,0.4)}
-.rt-dot.mid{border-color:var(--wood);background:rgba(109,181,106,0.3)}
-.rt-dot.low{border-color:rgba(194,200,209,0.5);background:rgba(194,200,209,0.15)}
+.rt-dot.mid{border-color:var(--wood);background:rgba(122,197,118,0.3)}
+.rt-dot.low{border-color:rgba(208,214,223,0.5);background:rgba(208,214,223,0.15)}
 .rt-connector{flex:1;width:2px;background:linear-gradient(180deg,rgba(64,128,200,0.5),rgba(64,128,200,0.1));margin:2px 0}
 .rt-item:last-child .rt-connector{display:none}
 .rt-content{flex:1;padding:0 0 24px 16px}
 .rt-year{font-size:0.78rem;color:var(--pb);font-family:'Noto Sans TC',sans-serif;letter-spacing:0.15em;margin-bottom:4px;font-weight:500;display:flex;flex-wrap:wrap;gap:6px;align-items:center}
-.rt-gz{font-family:'Ma Shan Zheng',cursive;font-size:1rem;color:var(--pb);margin-bottom:6px}
-.rt-desc{font-size:0.84rem;color:rgba(230,240,250,0.82);line-height:1.95;font-family:'Noto Sans TC',sans-serif;font-weight:300}
+.rt-gz{font-family:'Ma Shan Zheng',cursive;font-size:1.1rem;color:var(--pb);margin-bottom:6px}
+.rt-desc{font-size:0.84rem;color:rgba(230,240,250,0.82);line-height:1.95;font-weight:300}
 .rt-tag{display:inline-block;font-size:0.55rem;letter-spacing:0.15em;padding:2px 8px;border-radius:3px;font-family:'Noto Sans TC',sans-serif;vertical-align:middle;white-space:nowrap}
 .rt-tag.hot{background:rgba(64,128,200,0.18);color:#E6F0FA;border:1px solid rgba(64,128,200,0.4)}
-.rt-tag.warm{background:rgba(109,181,106,0.15);color:#E6F0FA;border:1px solid rgba(109,181,106,0.4)}
+.rt-tag.warm{background:rgba(122,197,118,0.15);color:#E6F0FA;border:1px solid rgba(122,197,118,0.4)}
 
 /* ══ 婚姻与财富框 ══ */
 .romance-diagram{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin:24px 0}
 .romance-box{background:rgba(8,12,20,0.88);border:1px solid rgba(64,128,200,0.15);border-radius:6px;padding:26px;backdrop-filter:blur(24px);transition:border-color .4s}
 .romance-box:hover{border-color:rgba(64,128,200,0.4)}
-.romance-box-ti{font-size:0.92rem;color:var(--pb);font-weight:600;margin-bottom:16px;letter-spacing:0.06em;display:flex;align-items:center;gap:7px}
+.romance-box-ti{font-size:0.92rem;color:var(--pb);font-weight:600;margin-bottom:16px;letter-spacing:0.06em;display:flex;align-items:center;gap:7px;font-family:'Noto Sans TC',sans-serif;}
 .romance-box-ti::before{content:'❧';color:var(--pb);font-size:0.75rem;opacity:0.85;flex-shrink:0}
-.romance-box p{font-size:0.86rem;line-height:2.05;color:rgba(230,240,250,0.88);font-family:'Noto Sans TC',sans-serif;font-weight:300}
+.romance-box p{font-size:0.86rem;line-height:2.05;color:rgba(230,240,250,0.88);font-weight:300}
 
 .wealth-tier{display:flex;align-items:stretch;margin:24px 0;border:1px solid rgba(64,128,200,0.2);border-radius:6px;overflow:hidden;background:rgba(8,12,20,0.65);backdrop-filter:blur(24px)}
 .wealth-tier-bar{width:6px;background:linear-gradient(180deg,var(--water) 0%,var(--wood) 50%,var(--fire) 100%);flex-shrink:0}
 .wealth-tier-body{padding:30px 36px;flex:1}
-.wealth-tier-body p{font-size:0.94rem;line-height:2.25;color:rgba(230,240,250,0.88);font-family:'Noto Sans TC',sans-serif;font-weight:300;margin-bottom:12px}
+.wealth-tier-body p{font-size:0.94rem;line-height:2.25;color:rgba(230,240,250,0.88);font-weight:300;margin-bottom:12px}
 
 .wealth-levels{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin:20px 0}
 .wl-item{padding:24px 20px;border:1px solid rgba(64,128,200,0.15);border-radius:6px;background:rgba(8,12,20,0.88);transition:border-color .3s;position:relative;overflow:hidden}
@@ -245,7 +265,7 @@ body::after {
 .wl-phase{font-family:'Noto Sans TC',sans-serif;font-size:0.6rem;letter-spacing:0.2em;color:var(--pb);margin-bottom:12px;opacity:0.6}
 .wl-val{font-family:'Ma Shan Zheng',cursive;font-size:1.4rem;color:var(--pb);margin-bottom:12px;display:flex;align-items:center;gap:10px}
 .wl-val::after{content:'';flex-grow:1;height:1px;background:rgba(64,128,200,0.2)}
-.wl-desc{font-size:0.85rem;color:rgba(230,240,250,0.85);font-family:'Noto Sans TC',sans-serif;line-height:1.9;font-weight:300}
+.wl-desc{font-size:0.85rem;color:rgba(230,240,250,0.85);line-height:1.9;font-weight:300}
 
 .wealth-stages{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:20px 0}
 .ws-item{padding:22px 18px;border:1px solid rgba(64,128,200,0.15);border-radius:6px;background:rgba(8,12,20,0.88);position:relative;overflow:hidden;transition:all .35s}
@@ -256,7 +276,7 @@ body::after {
 .ws-item.s3::after{background:linear-gradient(90deg,var(--wood),transparent)}
 .ws-stage{font-size:0.58rem;letter-spacing:0.22em;color:rgba(230,240,250,0.4);font-family:'Noto Sans TC',sans-serif;margin-bottom:8px}
 .ws-name{font-family:'Ma Shan Zheng',cursive;font-size:1.1rem;color:var(--pb);margin-bottom:10px}
-.ws-desc{font-size:0.82rem;color:rgba(230,240,250,0.85);line-height:1.9;font-family:'Noto Sans TC',sans-serif;font-weight:300}
+.ws-desc{font-size:0.82rem;color:rgba(230,240,250,0.85);line-height:1.9;font-weight:300}
 
 .chart-wrap{background:rgba(8,12,20,0.88);border:1px solid rgba(64,128,200,0.15);border-radius:6px;padding:28px 20px;margin:24px 0;position:relative;backdrop-filter:blur(24px)}
 .chart-title{font-family:'Noto Sans TC',sans-serif;font-size:0.72rem;color:var(--pb);letter-spacing:0.2em;margin-bottom:16px;text-align:center}
@@ -273,26 +293,24 @@ body::after {
 .ss-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin:24px 0}
 .ss-item{border:1px solid rgba(64,128,200,0.15);border-radius:6px;padding:26px;background:rgba(8,12,20,0.88);transition:all .35s;backdrop-filter:blur(24px)}
 .ss-item:hover{border-color:rgba(64,128,200,0.45);box-shadow:0 8px 24px rgba(0,0,0,0.4)}
-.ss-name{font-size:1.05rem;color:var(--pb);font-weight:600;margin-bottom:6px;letter-spacing:0.05em;display:flex;align-items:center;gap:7px}
+.ss-name{font-size:1.05rem;color:var(--pb);font-weight:600;margin-bottom:6px;letter-spacing:0.05em;display:flex;align-items:center;gap:7px;font-family:'Noto Sans TC',sans-serif;}
 .ss-name::before{content:'◈';font-size:0.48rem;color:var(--pb);flex-shrink:0}
 .ss-rule{font-size:0.7rem;color:rgba(230,240,250,0.45);font-family:'Noto Sans TC',sans-serif;margin-bottom:14px;letter-spacing:0.05em;border-bottom:1px dashed rgba(64,128,200,0.2);padding-bottom:10px}
-.ss-desc{font-size:0.88rem;color:rgba(230,240,250,0.88);line-height:2.1;font-family:'Noto Sans TC',sans-serif;font-weight:300}
+.ss-desc{font-size:0.88rem;color:rgba(230,240,250,0.88);line-height:2.1;font-weight:300}
 
+/* 修复大运区域，确保字体生效与多色兼容 */
 .yun-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(148px,1fr));gap:12px;margin-top:24px}
 .yun-card{background:rgba(8,12,20,0.88);border:1px solid rgba(64,128,200,0.15);border-radius:6px;padding:22px 16px;position:relative;transition:all .35s;backdrop-filter:blur(24px);display:flex;flex-direction:column}
 .yun-card:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(0,0,0,0.5)}
 .yun-card.current::after{content:'▶ 當前大運';position:absolute;top:8px;right:9px;font-size:0.56rem;color:inherit;font-family:'Noto Sans TC',sans-serif;letter-spacing:0.08em}
 .yun-age{font-size:0.6rem;color:var(--pb);opacity:0.8;margin-bottom:8px;font-family:'Noto Sans TC',sans-serif;letter-spacing:0.12em}
 .yun-stem{font-family:'Ma Shan Zheng',cursive;font-size:2.1rem;line-height:1;margin-bottom:12px;display:flex;gap:4px}
-.yun-desc{font-size:0.76rem;color:rgba(230,240,250,0.88);line-height:1.85;font-family:'Noto Sans TC',sans-serif;flex-grow:1;font-weight:300}
+.yun-desc{font-size:0.76rem;color:rgba(230,240,250,0.88);line-height:1.85;flex-grow:1;font-weight:300}
 .yun-quality{display:inline-block;font-size:0.56rem;letter-spacing:0.12em;padding:3px 7px;border-radius:3px;margin-top:9px;font-family:'Noto Sans TC',sans-serif}
-.q-great{background:rgba(184,163,133,0.2);color:#E6F0FA;border:1px solid rgba(184,163,133,0.4)}
-.q-good{background:rgba(64,128,200,0.12);color:#E6F0FA;border:1px solid rgba(64,128,200,0.3)}
-.q-warn{background:rgba(212,98,42,0.2);color:#F0D0C8;border:1px solid rgba(212,98,42,0.4)}
 
 /* ══ 地图标签与其他 ══ */
 .map-module{display:flex;flex-direction:column;gap:28px;background:rgba(8,12,20,0.88);border:1px solid rgba(64,128,200,0.2);border-radius:6px;padding:36px 40px;margin:20px 0;backdrop-filter:blur(20px)}
-.map-text h3{color:var(--pb);font-size:1.04rem;margin-bottom:16px;letter-spacing:0.09em;display:flex;align-items:center;gap:9px}
+.map-text h3{color:var(--pb);font-size:1.04rem;margin-bottom:16px;letter-spacing:0.09em;display:flex;align-items:center;gap:9px;font-family:'Noto Sans TC',sans-serif;}
 .map-text p{font-size:0.9rem;line-height:2.15;color:rgba(230,240,250,0.85);font-weight:300;margin-bottom:20px}
 .map-category {margin-bottom: 24px;}
 .map-category:last-child {margin-bottom: 0;}
@@ -300,9 +318,9 @@ body::after {
 .city-tags{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px}
 .city-tag{display:flex;flex-direction:column;gap:8px;padding:20px;border-radius:6px;font-size:0.85rem;font-family:'Noto Sans TC',sans-serif;letter-spacing:0.05em;line-height:1.8;cursor:pointer}
 .city-tag.water-tag{background:rgba(92,130,166,0.05);border:1px solid rgba(92,130,166,0.3);color:#DCE6EB}
-.city-tag.fire-tag{background:rgba(217,92,67,0.05);border:1px solid rgba(217,92,67,0.3);color:#F0E1E1}
-.city-tag.wood-tag{background:rgba(109,181,106,0.05);border:1px solid rgba(109,181,106,0.3);color:#E6F0FA}
-.city-tag.extreme-tag{background:rgba(194,200,209,0.05);border:1px solid rgba(194,200,209,0.3);color:#F2E6D8}
+.city-tag.fire-tag{background:rgba(232,108,79,0.05);border:1px solid rgba(232,108,79,0.3);color:#F0E1E1}
+.city-tag.wood-tag{background:rgba(122,197,118,0.05);border:1px solid rgba(122,197,118,0.3);color:#E6F0FA}
+.city-tag.extreme-tag{background:rgba(208,214,223,0.05);border:1px solid rgba(208,214,223,0.3);color:#F2E6D8}
 
 .major-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin:20px 0}
 .major-card{border:1px solid rgba(64,128,200,0.15);border-radius:6px;padding:22px 20px;background:rgba(8,12,20,0.88);position:relative;overflow:hidden}
@@ -313,7 +331,7 @@ body::after {
 .major-card.water-card::before{background:linear-gradient(90deg,var(--water),transparent)}
 .major-ti{font-size:0.85rem;color:var(--pb);font-weight:600;margin-bottom:6px;letter-spacing:0.05em;font-family:'Noto Sans TC',sans-serif}
 .major-tag{font-size:0.58rem;color:rgba(230,240,250,0.5);letter-spacing:0.1em;font-family:'Noto Sans TC',sans-serif;margin-bottom:10px;display:block}
-.major-desc{font-size:0.82rem;color:rgba(230,240,250,0.85);line-height:1.9;font-family:'Noto Sans TC',sans-serif;font-weight:300}
+.major-desc{font-size:0.82rem;color:rgba(230,240,250,0.85);line-height:1.9;font-weight:300}
 
 .dayun-info-bar{display:flex;align-items:center;gap:20px;background:rgba(64,128,200,0.08);border:1px solid rgba(64,128,200,0.2);border-radius:6px;padding:16px 24px;margin-bottom:28px;font-family:'Noto Sans TC',sans-serif;font-size:0.82rem;color:rgba(230,240,250,0.88);flex-wrap:wrap}
 .dayun-info-bar .di-item{display:flex;align-items:center;gap:6px}
@@ -334,12 +352,12 @@ body::after {
 .pt-item::after{content:'';position:absolute;top:6px;right:-36px;width:12px;height:12px;border-radius:50%;border:2px solid rgba(64,128,200,0.6);background:rgba(64,128,200,0.2);z-index:1}
 .pt-col.right .pt-item::after{left:-36px;right:auto}
 .pt-year{font-family:'Noto Sans TC',sans-serif;font-size:0.72rem;color:var(--pb);letter-spacing:0.15em;margin-bottom:4px;font-weight:500}
-.pt-gz{font-family:'Ma Shan Zheng',cursive;font-size:0.95rem;color:var(--pb);margin-bottom:5px}
-.pt-desc{font-size:0.8rem;color:rgba(230,240,250,0.82);line-height:1.85;font-family:'Noto Sans TC',sans-serif;font-weight:300}
+.pt-gz{font-family:'Ma Shan Zheng',cursive;font-size:1.1rem;color:var(--pb);margin-bottom:5px}
+.pt-desc{font-size:0.8rem;color:rgba(230,240,250,0.82);line-height:1.85;font-weight:300}
 
 /* ══ 终章 ══ */
 .verdict{text-align:center;padding:120px 20px 80px;border-top:1px solid rgba(64,128,200,0.08)}
-.verdict-kw{font-family:'Ma Shan Zheng',cursive;font-size:clamp(4rem,11vw,7.5rem);color:transparent;background:linear-gradient(145deg, #4080C8 0%, #80C0F8 45%, #6DB56A 100%);-webkit-background-clip:text;background-clip:text;line-height:1;margin-bottom:36px;animation:vshine 5.5s ease-in-out infinite}
+.verdict-kw{font-family:'Ma Shan Zheng',cursive;font-size:clamp(4rem,11vw,7.5rem);color:transparent;background:linear-gradient(145deg, #4080C8 0%, #80C0F8 45%, #7AC576 100%);-webkit-background-clip:text;background-clip:text;line-height:1;margin-bottom:36px;animation:vshine 5.5s ease-in-out infinite}
 @keyframes vshine{0%,100%{filter:brightness(0.95)}50%{filter:brightness(1.3)}}
 .verdict-body{font-size:1.02rem;line-height:3;color:rgba(230,240,250,0.88);max-width:660px;margin:0 auto 48px;font-weight:300;letter-spacing:0.04em}
 .verdict-divider{display:flex;align-items:center;justify-content:center;margin:0 auto 36px;gap:0}
@@ -408,8 +426,8 @@ body::after {
 </style>
 </head>
 <body>
-<div id="global-tooltip"></div>
 <canvas id="bgCanvas" aria-hidden="true"></canvas>
+<div id="global-tooltip"></div>
 
 <div class="top-bar">
   <div class="top-logo">ZenCode · VIP</div>
@@ -552,7 +570,7 @@ body::after {
       <strong style="color:var(--pb);font-size:1.05rem;display:block;margin-bottom:12px">五行能量流通剖析</strong>
       原局能量核心高度聚攏於【水】。天干丁癸相沖，地支亥卯半合，整體氣場如深海暗流，彌漫著強烈的防禦性與內在情緒。<br><br>
       <b>阻塞點（病）：</b>水多寒凝，全局至極之勢停滯於比劫（水），缺乏足夠的【火】（財星）來溫暖解凍，導致能量淤積，極易產生抑鬱、自我內耗與孤獨感。水多土蕩，七殺（規矩/體制）難以有效約束你。<br><br>
-      <b>通關鑰（藥）：</b>亟需【木】來引化厚水，木生【火】源。水生木，木生火，方能既降解水之氾濫，又令才華（木）凝結為切實的成果與外部反饋（火），完成從"情緒"到"價值"的完整轉化。
+      <b>通關鑰（藥）：</b>亟需【木】來引化厚水，木生【火】源。水生木，木生火，方能既降解水之氾濫，又令才華（木）凝結為切實的成果與外部反饋（火），完成從"情緒"到"价值"的完整轉化。
     </div>
   </div>
 
@@ -651,7 +669,7 @@ body::after {
     </div>
 
     <div style="margin-top:20px;padding-top:20px;border-top:1px dashed rgba(64,128,200,0.15)">
-      <strong style="color:var(--pb);font-size:0.95rem;display:block;margin-bottom:12px">十神極化與"隱秘通路"深度剖析</strong>
+      <strong style="color:var(--pb);font-size:0.95rem;display:block;margin-bottom:12px;font-family:'Noto Sans TC',sans-serif;">十神極化與"隱秘通路"深度剖析</strong>
       <p style="font-size:0.86rem;line-height:2;color:rgba(230,240,250,0.85);font-weight:300;margin-bottom:8px"><strong>1. 命局核心動力：</strong>比肩與劫財（水）佔據了半壁江山，這意味著你是一個極端固執且自我意識過剩的人。你的驅動力往往不是為了別人，而是為了「證明自己」。但過盛的劫財也容易導致你在深夜陷入自我懷疑與情緒內耗（亥亥自刑）。</p>
       <p style="font-size:0.86rem;line-height:2;color:rgba(230,240,250,0.85);font-weight:300;margin-bottom:8px"><strong>2. 印星(金)的缺失與安全感斷層：</strong>正偏印極度微弱且逢空亡。印星代表長輩庇護、傳統體制與內在的安全感。印星的缺失，導致你很難在傳統體制內找到歸屬感，凡事只能靠自己。你習慣了獨當一面，卻很難在別人面前展現脆弱。</p>
     </div>
@@ -745,18 +763,18 @@ body::after {
   <div class="card">
     <div class="card-ti">原局內部的拉扯：糾結與突圍</div>
     
-    <div style="background:rgba(8,12,20,0.4);border:1px solid rgba(240,120,64,0.2);padding:16px;border-radius:6px;margin-bottom:12px">
-      <strong style="color:var(--fire);font-size:0.95rem;display:block;margin-bottom:8px">◆ 天干衝：丁癸相沖（比肩奪財）</strong>
+    <div style="background:rgba(8,12,20,0.4);border:1px solid rgba(232,108,79,0.2);padding:16px;border-radius:6px;margin-bottom:12px">
+      <strong style="color:var(--fire);font-size:0.95rem;display:block;margin-bottom:8px;font-family:'Noto Sans TC',sans-serif;">◆ 天干衝：丁癸相沖（比肩奪財）</strong>
       <p style="font-size:0.85rem;color:rgba(230,240,250,0.8);line-height:1.8">月干丁火偏財，遭遇日、時干兩癸水猛烈衝擊。這是命局中最痛的撕裂點。丁火是你對世俗美好、財富與溫暖的渴望，但強大的癸水（你的固執、情緒、或者身邊的競爭者）總是不斷地去撲滅這團火。這導致你在財務上容易破財，在心理上常常在「渴望入世」與「清高避世」之間來回撕扯。</p>
     </div>
 
-    <div style="background:rgba(8,12,20,0.4);border:1px solid rgba(64,128,200,0.2);padding:16px;border-radius:6px;margin-bottom:12px">
-      <strong style="color:var(--pb);font-size:0.95rem;display:block;margin-bottom:8px">◆ 地支刑：亥亥自刑（日支刑時支）</strong>
+    <div style="background:rgba(8,12,20,0.4);border:1px solid rgba(96,168,240,0.2);padding:16px;border-radius:6px;margin-bottom:12px">
+      <strong style="color:var(--pb);font-size:0.95rem;display:block;margin-bottom:8px;font-family:'Noto Sans TC',sans-serif;">◆ 地支刑：亥亥自刑（日支刑時支）</strong>
       <p style="font-size:0.85rem;color:rgba(230,240,250,0.8);line-height:1.8">日支與時支皆為亥水，水勢過旺而自相刑伐。自刑，就是自己折磨自己。你極度容易在獨處時陷入精神內耗，把一件小事在腦海裡無限放大，甚至演變成自我攻擊。這種能量如果不通過外部工作（木火）發洩出去，極易引發抑鬱傾向。</p>
     </div>
 
-    <div style="background:rgba(8,12,20,0.4);border:1px solid rgba(109,181,106,0.2);padding:16px;border-radius:6px;">
-      <strong style="color:var(--wood);font-size:0.95rem;display:block;margin-bottom:8px">◆ 地支合：亥卯半合木（絕境逢生）</strong>
+    <div style="background:rgba(8,12,20,0.4);border:1px solid rgba(122,197,118,0.2);padding:16px;border-radius:6px;">
+      <strong style="color:var(--wood);font-size:0.95rem;display:block;margin-bottom:8px;font-family:'Noto Sans TC',sans-serif;">◆ 地支合：亥卯半合木（絕境逢生）</strong>
       <p style="font-size:0.85rem;color:rgba(230,240,250,0.8);line-height:1.8">這是命局的靈魂所在！年支卯木（食神）與日/時支亥水半合木局。當你的水勢即將把你淹沒（自刑）時，這股合力將水引導向了木（創造力、學習、輸出）。這意味著：工作、學習和才華的施展，是你拯救自己免於情緒崩潰的唯一解藥。</p>
     </div>
   </div>
@@ -775,7 +793,7 @@ body::after {
   <div class="romance-diagram">
     <div class="romance-box">
       <div class="romance-box-ti">丁癸沖與七殺的疏離</div>
-      <p>女命之論婚戀，多以"官殺星"為夫。察本局結構，年干己土七殺透出，但被旺水所困，且月干丁火與日主癸水相沖（丁癸沖）。在深層心理學中，這代表你對傳統婚姻中男性所扮演的「權威與庇護」角色有著本能的不信任與排斥。你極度渴望獨立與掌控（癸水本性），這從根源上削弱了傳統意義上依附型緣分的驅動。你在感情中，往往是那個清醒看透一切、隨時準備抽身的人。</p>
+      <p>女命之論婚戀，多以"官殺星"為伴侣。察本局結構，年干己土七殺透出，但被旺水所困，且月干丁火與日主癸水相沖（丁癸沖）。在深層心理學中，這代表你對傳統婚姻中男性所扮演的「權威與庇護」角色有著本能的不信任與排斥。你極度渴望獨立與掌控（癸水本性），這從根源上削弱了傳統意義上依附型緣分的驅動。你在感情中，往往是那個清醒看透一切、隨時準備抽身的人。</p>
     </div>
     <div class="romance-box" style="border-color:rgba(64,128,200,0.4);background:rgba(64,128,200,0.04)">
       <div class="romance-box-ti" style="color:var(--pb)">夫妻宮坐劫財（羊刃）的雙刃劍</div>
@@ -800,23 +818,23 @@ body::after {
         <div class="rt-line"><div class="rt-dot mid"></div><div class="rt-connector"></div></div>
         <div class="rt-content">
           <div class="rt-year">2019—2028年 · 己卯大運 <span class="rt-tag warm">殺印相生 / 桃花活躍</span></div>
-          <div class="rt-gz">己卯運 · 七殺透干 · 卯木桃花</div>
-          <div class="rt-desc">當前大運！己土七殺（夫星/異性緣）透干，且地支卯木為你的桃花星與天乙貴人。這十年是你異性緣分最為活躍的時期。但七殺帶來的感情往往充滿戲劇性與壓力，遇到的人多數帶有強勢或顛覆性的特質，容易在激情後陷入權力博弈。</div>
+          <div class="rt-gz"><span class="c-earth">己</span><span class="c-wood">卯</span>運 · 七殺透干 · 卯木桃花</div>
+          <div class="rt-desc">當前大運！己土七殺透干，且地支卯木為你的桃花星與天乙貴人。這十年是你緣分最為活躍的時期。但七殺帶來的感情往往充滿戲劇性與壓力，遇到的人多數帶有強勢或顛覆性的特質，容易在激情後陷入權力博弈。</div>
         </div>
       </div>
       <div class="rt-item">
         <div class="rt-line"><div class="rt-dot low"></div><div class="rt-connector"></div></div>
         <div class="rt-content">
           <div class="rt-year">2029—2038年 · 庚辰大運 <span class="rt-tag">沉澱與內耗期</span></div>
-          <div class="rt-gz">庚辰運 · 印星生劫 · 辰土官庫</div>
-          <div class="rt-desc">庚金印星生旺水氣，辰為正官（夫星）之庫。水勢更旺，自我防禦機制達到頂峰。此階段對感情的需求會大幅降低，更傾向於內向探索與事業積累。容易覺得「還是自己一個人最輕鬆」。</div>
+          <div class="rt-gz"><span class="c-metal">庚</span><span class="c-earth">辰</span>運 · 印星生劫 · 辰土官庫</div>
+          <div class="rt-desc">庚金印星生旺水氣，辰為正官之庫。水勢更旺，自我防禦機制達到頂峰。此階段對感情的需求會大幅降低，更傾向於內向探索與事業積累。容易覺得「還是自己一個人最輕鬆」。</div>
         </div>
       </div>
       <div class="rt-item">
         <div class="rt-line"><div class="rt-dot high"></div><div class="rt-connector"></div></div>
         <div class="rt-content">
           <div class="rt-year">2039—2048年 · 辛巳大運 <span class="rt-tag hot">巳亥衝擊 / 劇烈變動</span></div>
-          <div class="rt-gz">辛巳運 · 財星調候 · 巳亥相沖</div>
+          <div class="rt-gz"><span class="c-metal">辛</span><span class="c-fire">巳</span>運 · 財星調候 · 巳亥相沖</div>
           <div class="rt-desc">巳火正財入大運，帶來極佳的調候與世俗慾望，但巳亥猛烈相沖（衝擊夫妻宮）。這十年在感情與居住環境上將面臨重大的、甚至是顛覆性的改變。若前期有不合適的關係，此運必然破裂；若單身，則可能遇到突然的、打破你所有原則的強烈緣分。</div>
         </div>
       </div>
@@ -843,7 +861,7 @@ body::after {
   <div class="card">
     <div class="card-ti">食神泄秀與成就上限探究</div>
     <div class="quote">《子平真詮》：「食神制殺，英雄獨壓萬人；傷官生財，富貴自天排。」</div>
-    <p>年支卯木（食神）是你命盤的定海神針。雖然被水包圍，但只要大運流年逢木火引動（如當前的己卯運，以及即將到來的2025乙巳、2026丙午年），你的才華就會像火山一樣爆發。你的藝術造詣、策劃能力或專業技能，是你突破階層上限的唯一武器。你必須拒絕平庸的、可被替代的崗位，去追求那些需要「獨特眼光和解決方案」的領域。</p>
+    <p>年支卯木（食神）是你命盤的定海神針。雖然被水包圍，但只要大運流年逢木火引動（如當前的己卯運，以及即將到來的2025乙巳、2026丙午年），你的才華就會像火山一樣爆發。你的艺术造詣、策劃能力或專業技能，是你突破階層上限的唯一武器。你必須拒絕平庸的、可被替代的崗位，去追求那些需要「獨特眼光和解決方案」的領域。</p>
   </div>
 
   <div class="card-ti" style="margin-top:32px;margin-bottom:0;color:var(--pb)"><span style="font-size:0.38rem;color:var(--pb);margin-right:9px">◆</span>事業發展並行時間線</div>
@@ -852,17 +870,17 @@ body::after {
       <div class="pt-col-hd">📚 技能與心智積累</div>
       <div class="pt-item">
         <div class="pt-year">2019—2024年</div>
-        <div class="pt-gz">己卯運 · 前半段</div>
+        <div class="pt-gz"><span class="c-earth">己</span><span class="c-wood">卯</span>運 · 前半段</div>
         <div class="pt-desc">七殺壓力顯現，在迷茫與壓力中被迫學習與適應，建立起初步的專業壁壘與抗壓能力。</div>
       </div>
       <div class="pt-item">
         <div class="pt-year">2025年 乙巳流年</div>
-        <div class="pt-gz">食神生財 · 破冰</div>
+        <div class="pt-gz"><span class="c-wood">乙</span><span class="c-fire">巳</span> · 食神生財</div>
         <div class="pt-desc">思維突然清晰，靈感爆發，是學習新領域、考取重要資質或進行跨界嘗試的絕佳年份。</div>
       </div>
       <div class="pt-item">
         <div class="pt-year">2029—2038年</div>
-        <div class="pt-gz">庚辰大運 · 沉澱</div>
+        <div class="pt-gz"><span class="c-metal">庚</span><span class="c-earth">辰</span>運 · 沉澱</div>
         <div class="pt-desc">印星主導，適合向管理、諮詢、或更深層次的學術/玄學領域深造，將技能轉化為系統化的知識體系。</div>
       </div>
     </div>
@@ -870,17 +888,17 @@ body::after {
       <div class="pt-col-hd">💼 職業與變現軌跡</div>
       <div class="pt-item">
         <div class="pt-year">2025年 乙巳 / 2026年 丙午</div>
-        <div class="pt-gz">火氣鼎盛 · 財運大開</div>
+        <div class="pt-gz"><span class="c-fire">火氣鼎盛</span> · 財運大開</div>
         <div class="pt-desc"><strong>關鍵時間節點！</strong>命局徹底解凍，是近年來事業突破、升職加薪或副業變現的最強窗口，必須大膽出擊！</div>
       </div>
       <div class="pt-item">
         <div class="pt-year">2027年 丁未 / 2028年 戊申</div>
-        <div class="pt-gz">偏財透干 / 官印相生</div>
+        <div class="pt-gz"><span class="c-fire">丁</span><span class="c-earth">未</span> / <span class="c-earth">戊</span><span class="c-metal">申</span></div>
         <div class="pt-desc">在火土的餘溫中鞏固成果，2028年迎來環境的轉換與職級的穩固，為下一個十年打下基礎。</div>
       </div>
       <div class="pt-item">
         <div class="pt-year">2039年後</div>
-        <div class="pt-gz">辛巳 / 壬午大運</div>
+        <div class="pt-gz"><span class="c-metal">辛</span><span class="c-fire">巳</span> / <span class="c-water">壬</span><span class="c-fire">午</span>運</div>
         <div class="pt-desc">南方火運正式到來！徹底擺脫水旺之寒，事業格局迎來質的飛躍，適合創業或成為行業內的核心話事人。</div>
       </div>
     </div>
@@ -955,7 +973,7 @@ body::after {
       <div class="ws-desc">大運步入南方火地，命局徹底暖轉！這二十年是財富呈指數級爆發的黃金期，事業版圖全面展開，賺錢變得順理成章。</div>
     </div>
     <div class="ws-item s3">
-      <div class="ws-stage">第三階段 · 癸未 (61歲後)</div>
+      <div class="ws-stage">第三阶段 · 癸未 (61歲後)</div>
       <div class="ws-name">木局成形與資產安泰</div>
       <div class="ws-desc">亥卯未三合木局，食傷生財源源不絕。晚年不僅財富自由，更能將經驗轉化為影響力，享受受人尊重的安穩歲月。</div>
     </div>
@@ -983,8 +1001,8 @@ body::after {
           <div class="city-tag fire-tag anchor" data-text="<strong style='color:#F0E1E1'>🔴 華南/大灣區/海南（正南火地）</strong><br><br>隸屬正南離火之地。對於你這盤極寒的水來說，南方是最強的調候與解凍之地。前往廣東、深圳或海南發展，能迅速激發你的賺錢慾望與事業活力，驅散內心的陰霾。">
             🔴 華南/大灣區 — 最強解凍與財富激發地
           </div>
-          <div class="city-tag wood-tag anchor" data-text="<strong style='color:#9BC46A'>🟢 江浙滬/華東地區（正東木地）</strong><br><br>上海、杭州等地在五行方位上隸屬正東，稟賦純正的甲乙木氣場。木能吸收你過剩的水氣，轉化為才華與創造力。這裡極其適合你發展文創、互聯網、設計等食傷相關行業。">
-            🟢 華東地區 — 疏導水勢，才華變現沃土
+          <div class="city-tag wood-tag anchor" data-text="<strong style='color:#9BC46A'>🟢 江浙滬/華東地區（正東木地）</strong><br><br>上海、杭州等地在五行方位上隸屬正東，稟賦純正的甲乙木氣場。木能吸收你過剩的水氣，轉化為才华與創造力。這裡極其適合你發展文創、互聯網、設計等食傷相關行業。">
+            🟢 華東地區 — 疏導水勢，才华變現沃土
           </div>
           <div class="city-tag water-tag anchor" data-text="<strong style='color:#DCE6EB'>🔵 東北/華北/西北（金水忌神區）</strong><br><br>氣候偏寒，五行屬水或金。你若長期居於此地，無異於雪上加霜，極易誘發抑鬱、事業停滯與人際冷漠。必須盡量規避長期定居。">
             🔵 北方/西部 — 極寒內耗區，嚴禁久居
@@ -1057,37 +1075,37 @@ body::after {
   <div class="yun-grid">
     <div class="yun-card">
       <div class="yun-age">2009–2018</div>
-      <div class="yun-stem earth-c">戊寅</div>
+      <div class="yun-stem"><span class="c-earth">戊</span><span class="c-wood">寅</span></div>
       <div class="yun-desc">正官坐傷官。寅亥合木，泄去水氣，早年尚算順遂，但戊土合癸水，略感管束與壓抑。</div>
     </div>
     <div class="yun-card current">
       <div class="yun-age">2019–2028</div>
-      <div class="yun-stem wood-c">己卯</div>
+      <div class="yun-stem"><span class="c-earth">己</span><span class="c-wood">卯</span></div>
       <div class="yun-desc">七殺坐食神。當前大運！亥卯半合，食神制殺的覺醒與破局期。壓力與自我突破並存的關鍵十年。</div>
     </div>
     <div class="yun-card">
       <div class="yun-age">2029–2038</div>
-      <div class="yun-stem metal-c">庚辰</div>
+      <div class="yun-stem"><span class="c-metal">庚</span><span class="c-earth">辰</span></div>
       <div class="yun-desc">正印坐正官。庚金生水，辰為水庫。水勢更旺，是一個容易迷茫、承壓且內耗增加的過渡階段。</div>
     </div>
     <div class="yun-card">
       <div class="yun-age">2039–2048</div>
-      <div class="yun-stem metal-c">辛巳</div>
+      <div class="yun-stem"><span class="c-metal">辛</span><span class="c-fire">巳</span></div>
       <div class="yun-desc">偏印坐正財。巳亥沖（沖日/時）！人生迎來劇烈變動的十年。巳火調候，財運打開，但感情動盪。</div>
     </div>
     <div class="yun-card">
       <div class="yun-age">2049–2058</div>
-      <div class="yun-stem water-c">壬午</div>
+      <div class="yun-stem"><span class="c-water">壬</span><span class="c-fire">午</span></div>
       <div class="yun-desc">劫財坐偏財。丁壬合，午亥暗合。午火強勢調候，格局徹底暖轉，中年後財富與事業迎來真正高峰。</div>
     </div>
     <div class="yun-card">
       <div class="yun-age">2059–2068</div>
-      <div class="yun-stem water-c">癸未</div>
-      <div class="yun-desc">比肩坐七殺。亥卯未三合木局（食傷局）。晚年才華不減，精神世界豐富，且未土制水，生活安穩。</div>
+      <div class="yun-stem"><span class="c-water">癸</span><span class="c-earth">未</span></div>
+      <div class="yun-desc">比肩坐七殺。亥卯未三合木局（食傷局）。晚年才华不減，精神世界豐富，且未土制水，生活安穩。</div>
     </div>
     <div class="yun-card">
       <div class="yun-age">2069–2078</div>
-      <div class="yun-stem wood-c">甲申</div>
+      <div class="yun-stem"><span class="c-wood">甲</span><span class="c-metal">申</span></div>
       <div class="yun-desc">傷官坐正印。傷官透干，思想活躍。申亥相害，需注意健康保養，修身養性。</div>
     </div>
   </div>
@@ -1143,9 +1161,9 @@ body::after {
   <div class="sec-hd">
     <div class="sec-num">拾貳</div>
     <div class="sec-ti-wrap">
-      <div class="sec-ti">稱骨訣·先天能量解讀</div>
+      <div class="sec-ti">称骨诀·先天能量解讀</div>
       <div class="sec-en">BONE WEIGHT · INNATE CAPACITY · POTENTIAL</div>
-      <div class="sec-intro">古代稱骨算命法，揭示了你生命底層的能量配備與人生劇本的走向。</div>
+      <div class="sec-intro">古代称骨算命法，揭示了你生命底層的能量配備與人生劇本的走向。</div>
     </div>
   </div>
 
@@ -1154,7 +1172,7 @@ body::after {
       <div class="bone-num">4<span class="bone-unit">兩</span>5<span class="bone-unit">錢</span></div>
     </div>
     <div class="bone-body">
-      <p>《袁天罡稱骨歌》4兩5錢：「名利推求竟若何，前番辛苦後奔波；命中難養男和女，骨肉扶持也不多。」（註：此為古典斷語，需結合現代語境理解）</p>
+      <p>《袁天罡称骨歌》4两5钱：「名利推求竟若何，前番辛苦後奔波；命中難養男和女，骨肉扶持也不多。」（註：此為古典斷語，需結合現代語境理解）</p>
       <p>這段骨重斷語點出了你命局的核心：<strong>一生靠自己，親情緣薄，先苦後甜</strong>。你的命盤水多無依，確實難以得到六親的強大助力（骨肉扶持不多），凡事都要親力親為（前番辛苦）。但「名利推求」最終會在你中晚年（特別是未來的火運）給予你豐厚的回報。這是一個標準的「白手起家、大器晚成」的劇本。</p>
     </div>
   </div>
@@ -1173,7 +1191,7 @@ body::after {
   <div class="oppo-box">
     <h3>🌱 當前最值得把握的機會（2025–2026）</h3>
     <ul>
-      <li><strong>把握 己卯大運 (2019-2028) 的食神制殺黃金期：</strong> 這是你才華最能解決實際問題的階段。利用這股合木（食傷）的力量，去鑽研技術、去創作、去輸出你的價值。忙碌與壓力是這十年的常態，但這份忙碌能為你建立起堅不可摧的個人護城河。</li>
+      <li><strong>把握 己卯大運 (2019-2028) 的食神制殺黃金期：</strong> 這是你才华最能解決實際問題的階段。利用這股合木（食傷）的力量，去鑽研技術、去創作、去輸出你的價值。忙碌與壓力是這十年的常態，但這份忙碌能為你建立起堅不可摧的個人护城河。</li>
       <li><strong>主動求變，迎接 2025 (乙巳) 的沖擊：</strong>巳亥沖代表動盪，但也代表破冰的機會。不要害怕離開舒適圈，換城市、轉換賽道或重塑人際圈，都是順應流年能量的好方法。「動」能解你的命盤之寒。</li>
       <li><strong>為 2026 (丙午) 的大爆發做好準備：</strong>2026年是你近十年財運與調候最完美的一年。現在要做的就是積累專業技能與資源，等到明年火氣一旺，直接變現，大膽追求商業或事業上的躍升。</li>
     </ul>
@@ -1345,7 +1363,7 @@ document.addEventListener('mouseout',e=>{if(e.target.closest('.anchor'))hideTool
     {yr:2029,lbl:'庚辰大運',score:5.5,desc:'30—39歲（2029—2038）。金生水旺，辰為水庫。水寒氣重，極易陷入精神內耗與迷茫。需極度保守，防範抑鬱與破財。'},
     {yr:2039,lbl:'辛巳大運',score:7.5,desc:'40—49歲（2039—2048）。巳亥猛烈相沖！人生劇烈變動的十年。雖有陣痛，但巳火帶來寶貴的調候，財運打開，破局重生。'},
     {yr:2049,lbl:'壬午大運 ★',score:9.2,desc:'50—59歲（2049—2058）。午火強勢調候，格局徹底暖轉！早年的積累在此刻爆發，事業財富雙豐收，人生迎來真正高光。'},
-    {yr:2059,lbl:'癸未大運',score:8.5,desc:'60—69歲（2059—2068）。亥卯未三合木局。才華不減，精神世界豐富。未土制水，晚年生活安穩從容。'},
+    {yr:2059,lbl:'癸未大運',score:8.5,desc:'60—69歲（2059—2068）。亥卯未三合木局。才华不減，精神世界豐富。未土制水，晚年生活安穩從容。'},
     {yr:2069,lbl:'甲申大運',score:7.0,desc:'70—79歲（2069—2078）。傷官透干，思維依然活躍。申亥相害，需注重養生，宜靜心修道。'}
   ];
   const nowIdx=1; 
@@ -1359,7 +1377,7 @@ document.addEventListener('mouseout',e=>{if(e.target.closest('.anchor'))hideTool
       if(pts.length){
         const i=pts[0].index,d=data[i];
         showTooltip(
-          `<strong style="color:#60A8F0;font-size:0.95rem;display:block;margin-bottom:6px">${d.yr}年起 · ${d.lbl}</strong><span style="color:#6DB56A;font-weight:600">綜合勢能：${d.score.toFixed(1)}</span><br><span style="color:rgba(230,240,250,0.85);font-size:0.8rem;line-height:1.7;display:inline-block;margin-top:6px">${d.desc}</span>`,
+          `<strong style="color:#60A8F0;font-size:0.95rem;display:block;margin-bottom:6px">${d.yr}年起 · ${d.lbl}</strong><span style="color:#7AC576;font-weight:600">綜合勢能：${d.score.toFixed(1)}</span><br><span style="color:rgba(230,240,250,0.85);font-size:0.8rem;line-height:1.7;display:inline-block;margin-top:6px">${d.desc}</span>`,
           chart.canvas.getBoundingClientRect().left+event.x+18,
           chart.canvas.getBoundingClientRect().top+event.y-90
         );
